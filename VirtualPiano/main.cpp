@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "VirtualPianoParser.h"
 
 class MenuInterface {
 public:
@@ -55,6 +56,18 @@ MenuInterface::MenuOptions MenuInterface::menu_option_ = EXIT;
 
 int main(int argc, char* argv[]) {
 	std::cout << "Hello, World!" << std::endl;
+
+	if (argc < 2) {
+		std::cout << "Error: invalid usage of program."
+			<< std::endl << "Usage: program.exe file_path" << std::endl
+			<< std::endl << "param file_path - file which contains key to note and midi number mapping"
+			<< std::endl;
+
+		return 0;
+	}
+
+	VirtualPianoParser parser(argv[1]);
+
 	while (MenuInterface::is_program_running()) {
 		try {
 			MenuInterface::print_menu();
