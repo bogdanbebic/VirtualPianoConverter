@@ -5,23 +5,25 @@ class MenuInterface {
 public:
 	static void print_menu() {
 		std::cout << "0. Exit program" << std::endl
-			<< "Choose menu option: ";
+			<< "Choose menu option (index of option): ";
 	}
 
 	static void read_menu_option(std::istream &is = std::cin) {
 		int temp;
 		is >> temp;
 		if (temp < EXIT || temp >= NUM_OF_OPTIONS) {
-			throw BadMenuOption();
+			throw InvalidMenuOption();
 		}
+
+		menu_option_ = static_cast<MenuOptions>(temp);
 
 	}
 
 	static void execute_option() {
 		switch (menu_option_) {
 		case EXIT:
-			// TODO: deallocation of everything
 			is_program_running_ = false;
+			break;
 		default: 
 			break;
 		}
@@ -32,10 +34,10 @@ public:
 		return is_program_running_;
 	}
 
-	class BadMenuOption : std::exception {
+	class InvalidMenuOption : std::exception {
 	public:
 		const char *what() const override {
-			return "Error: bad menu option\n";
+			return "Error: invalid menu option\n";
 		}
 
 	};
@@ -59,7 +61,7 @@ int main(int argc, char* argv[]) {
 			MenuInterface::read_menu_option();
 			MenuInterface::execute_option();
 		}
-		catch (MenuInterface::BadMenuOption &ex) {
+		catch (MenuInterface::InvalidMenuOption &ex) {
 			std::cerr << ex.what();
 		}
 
