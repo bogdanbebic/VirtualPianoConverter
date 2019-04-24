@@ -1,20 +1,30 @@
 #include "Note.h"
 
 Note::Note(Pitch pitch, Octave octave, const Duration & duration)
-	: pitch_(pitch)
+	: MusicSymbol(duration)
+	, pitch_(pitch)
 	, octave_(octave)
-	, duration_(duration)
 {
 	// empty body
 }
 
 Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration)
-	: pitch_(pitch)
+	: MusicSymbol(duration)
+	, pitch_(pitch)
 	, accidental_(accidental)
 	, octave_(octave)
-	, duration_(duration)
 {
 	// empty body
+}
+
+std::string Note::to_string() const {
+	std::string ret({ static_cast<char>(this->pitch_) });
+	if (this->accidental_ != NO_ACCIDENTAL) {
+		 ret += static_cast<char>(this->accidental_);
+	}
+
+	ret += '0' + static_cast<unsigned>(this->octave_);
+	return ret;
 }
 
 bool Note::has_no_accidental() const {
@@ -26,11 +36,6 @@ bool Note::is_sharp() const {
 }
 
 std::ostream & operator<<(std::ostream & os, const Note & note) {
-	os << static_cast<char>(note.pitch_);
-	if (note.accidental_ != Note::NO_ACCIDENTAL) {
-		os << static_cast<char>(note.accidental_);
-	}
-	
-	os << note.octave_;
+	os << note.to_string();
 	return os;
 }

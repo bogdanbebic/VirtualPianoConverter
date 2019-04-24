@@ -117,12 +117,16 @@
   <ItemGroup>
     <ClCompile Include="Duration.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MusicSymbol.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="VirtualPianoParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Duration.h" />
+    <ClInclude Include="MusicSymbol.h" />
     <ClInclude Include="Note.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="VirtualPianoParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
