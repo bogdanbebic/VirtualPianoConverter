@@ -6,6 +6,10 @@ MusicSymbol::MusicSymbol(const Duration & duration)
 	// empty body
 }
 
+Duration MusicSymbol::duration() const {
+	return this->duration_;
+}
+
 Duration MusicSymbol::one_quarter = Duration(1, 4);
 
 Duration MusicSymbol::one_eight = Duration(1, 8);

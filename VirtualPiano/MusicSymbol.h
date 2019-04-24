@@ -17,6 +17,9 @@ public:
 
 	virtual ~MusicSymbol() = default;
 
+
+	Duration duration() const;
+
 	virtual std::string to_string() const = 0;
 	
 	friend std::ostream & operator << (std::ostream & os, const MusicSymbol & music_symbol);

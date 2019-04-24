@@ -15,9 +15,7 @@ public:
 	std::string to_string() const override;
 
 	friend std::ostream & operator << (std::ostream & os, const Note & note);
-	
-	Duration duration() const;
-	
+
 	bool has_no_accidental() const;
 	bool is_sharp() const;
 

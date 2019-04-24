@@ -27,10 +27,6 @@ std::string Note::to_string() const {
 	return ret;
 }
 
-Duration Note::duration() const {
-	return this->duration_;
-}
-
 bool Note::has_no_accidental() const {
 	return this->accidental_ == NO_ACCIDENTAL;
 }
