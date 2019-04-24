@@ -1,10 +1,12 @@
-#pragma once
+#ifndef _VIRTUALPIANOPARSER_H_
+#define _VIRTUALPIANOPARSER_H_
+
 #include <string>
 #include <regex>
 
 class VirtualPianoParser {
 public:
-	explicit VirtualPianoParser(const std::string in_file_path);
+	explicit VirtualPianoParser(std::string in_file_path);
 
 
 	
@@ -12,3 +14,5 @@ public:
 private:
 	std::string in_file_path_;
 };
+
+#endif	// end VirtualPianoParser.h

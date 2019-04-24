@@ -5,11 +5,11 @@
 class MenuInterface {
 public:
 	static void print_menu() {
-		std::cout << "0. Exit program" << std::endl
+		std::cout << "0. Exit program\n"
 			<< "Choose menu option (index of option): ";
 	}
 
-	static void read_menu_option(std::istream &is = std::cin) {
+	static void read_menu_option(std::istream& is = std::cin) {
 		int temp;
 		is >> temp;
 		if (temp < EXIT || temp >= NUM_OF_OPTIONS) {
@@ -25,7 +25,7 @@ public:
 		case EXIT:
 			is_program_running_ = false;
 			break;
-		default: 
+		default:
 			break;
 		}
 
@@ -37,7 +37,7 @@ public:
 
 	class InvalidMenuOption : std::exception {
 	public:
-		const char *what() const override {
+		const char* what() const override {
 			return "Error: invalid menu option\n";
 		}
 
@@ -48,7 +48,7 @@ private:
 
 	static MenuOptions menu_option_;
 	static bool is_program_running_;
-	
+
 };
 
 bool MenuInterface::is_program_running_ = true;
@@ -58,10 +58,9 @@ int main(int argc, char* argv[]) {
 	std::cout << "Hello, World!" << std::endl;
 
 	if (argc < 2) {
-		std::cout << "Error: invalid usage of program."
-			<< std::endl << "Usage: program.exe file_path" << std::endl
-			<< std::endl << "param file_path - file which contains key to note and midi number mapping"
-			<< std::endl;
+		std::cout << "Error: invalid usage of program.\n"
+			<< "Usage: program.exe file_path\n"
+			<< "param file_path - file which contains key to note and midi number mapping\n";
 
 		return 0;
 	}
@@ -74,7 +73,7 @@ int main(int argc, char* argv[]) {
 			MenuInterface::read_menu_option();
 			MenuInterface::execute_option();
 		}
-		catch (MenuInterface::InvalidMenuOption &ex) {
+		catch (MenuInterface::InvalidMenuOption& ex) {
 			std::cerr << ex.what();
 		}
 

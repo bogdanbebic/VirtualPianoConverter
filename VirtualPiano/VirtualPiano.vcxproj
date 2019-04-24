@@ -115,10 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="Duration.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Note.cpp" />
     <ClCompile Include="VirtualPianoParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Duration.h" />
+    <ClInclude Include="Note.h" />
     <ClInclude Include="VirtualPianoParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

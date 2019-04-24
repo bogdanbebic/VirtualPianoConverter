@@ -1,7 +1,8 @@
 #include "VirtualPianoParser.h"
+#include <utility>
 
-VirtualPianoParser::VirtualPianoParser(const std::string in_file_path)
-	: in_file_path_(in_file_path)
+VirtualPianoParser::VirtualPianoParser(std::string in_file_path)
+	: in_file_path_(std::move(in_file_path))
 {
 	// empty body
 }
