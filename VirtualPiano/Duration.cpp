@@ -70,3 +70,15 @@ bool operator==(const Duration & d1, const Duration & d2) {
 	return d1.numerator_ * (d2.denominator_ / greatest_common_divisor)
 		== d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
 }
+
+bool operator<=(const Duration & d1, const Duration & d2) {
+	const auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);
+	return d1.numerator_ * (d2.denominator_ / greatest_common_divisor)
+		<= d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
+}
+
+bool operator>=(const Duration & d1, const Duration & d2) {
+	const auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);
+	return d1.numerator_ * (d2.denominator_ / greatest_common_divisor)
+		>= d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
+}

@@ -33,6 +33,9 @@
     <ClCompile Include="Pause.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Measure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VirtualPianoParser.h">
@@ -50,5 +53,30 @@
     <ClInclude Include="Pause.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Measure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\map.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resource\input\fur_elise.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resource\input\jingle_bells.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resource\input\ode_to_joy.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resource\input\spring.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resource\input\we_wich_you_a_merry_christmas.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

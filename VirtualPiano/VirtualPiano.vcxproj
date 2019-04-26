@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="Duration.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Measure.cpp" />
     <ClCompile Include="MusicSymbol.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -124,10 +125,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Duration.h" />
+    <ClInclude Include="Measure.h" />
     <ClInclude Include="MusicSymbol.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="VirtualPianoParser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\map.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resource\input\fur_elise.txt" />
+    <Text Include="resource\input\jingle_bells.txt" />
+    <Text Include="resource\input\ode_to_joy.txt" />
+    <Text Include="resource\input\spring.txt" />
+    <Text Include="resource\input\we_wich_you_a_merry_christmas.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
