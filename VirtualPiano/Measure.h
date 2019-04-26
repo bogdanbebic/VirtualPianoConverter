@@ -1,7 +1,9 @@
 #ifndef _MEASURE_H_
 #define _MEASURE_H_
 
+#include <iostream>
 #include <vector>
+#include <memory>
 #include "MusicSymbol.h"
 
 class Measure {
@@ -16,12 +18,14 @@ public:
 
 	~Measure();
 
-	void push_back(const MusicSymbol & music_symbol);
+	void push_back(std::shared_ptr<MusicSymbol> music_symbol);
+
+	friend std::ostream & operator << (std::ostream & os, const Measure & measure);
 
 private:
 	Duration measure_duration_;
 	Duration current_duration_;
-	std::vector<MusicSymbol*> music_symbols_;
+	std::vector<std::shared_ptr<MusicSymbol>> music_symbols_;
 };
 
 #endif	// end Measure.h

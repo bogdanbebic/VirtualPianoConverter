@@ -8,16 +8,22 @@ Measure::Measure(const Duration & measure_duration)
 }
 
 Measure::~Measure() {
-	for (auto & music_symbol : this->music_symbols_) {
-		delete music_symbol;
+	this->music_symbols_.clear();
+}
+
+void Measure::push_back(std::shared_ptr<MusicSymbol> music_symbol) {
+	if (this->current_duration_ + music_symbol->duration() <= this->measure_duration_) {
+		this->current_duration_ += music_symbol->duration();
+		this->music_symbols_.push_back(std::move(music_symbol));
 	}
 
 }
 
-void Measure::push_back(const MusicSymbol & music_symbol) {
-	if (this->current_duration_ + music_symbol.duration() <= this->measure_duration_) {
-		this->current_duration_ += music_symbol.duration();
-		// TODO: push_back music_symbol
+std::ostream & operator<<(std::ostream & os, const Measure & measure) {
+	for (auto & music_symbol : measure.music_symbols_) {
+		os << *music_symbol;
 	}
 
+	os << "\n";
+	return os;
 }
