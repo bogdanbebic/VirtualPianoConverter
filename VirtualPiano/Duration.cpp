@@ -12,6 +12,13 @@ Duration::Duration(const unsigned numerator, const unsigned denominator)
 
 }
 
+Duration & Duration::operator+=(const Duration & other) {
+	const auto ret = *this + other;
+	this->numerator_ = ret.numerator_;
+	this->denominator_ = ret.denominator_;
+	return *this;
+}
+
 unsigned Duration::gcd(const unsigned a, const unsigned b) {
 	if (b == 0) {
 		return a;
@@ -23,6 +30,21 @@ unsigned Duration::gcd(const unsigned a, const unsigned b) {
 unsigned Duration::lcm(const unsigned a, const unsigned b) {
 	// division first, to avoid overflow
 	return a * (b / gcd(a, b));
+}
+
+Duration operator+(const Duration & d1, const Duration & d2) {
+	auto den = Duration::lcm(d1.denominator_, d2.denominator_);
+	auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);
+	auto num = d1.numerator_ * (d2.denominator_ / greatest_common_divisor)
+		+ d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
+
+	greatest_common_divisor = Duration::gcd(num, den);
+	if (greatest_common_divisor != 1) {
+		num /= greatest_common_divisor;
+		den /= greatest_common_divisor;
+	}
+
+	return Duration(num, den);
 }
 
 bool operator<(const Duration &d1, const Duration &d2) {

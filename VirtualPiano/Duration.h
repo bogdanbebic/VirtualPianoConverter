@@ -3,12 +3,16 @@
 
 class Duration {
 public:
-	Duration(const unsigned numerator, const unsigned denominator);
+	explicit Duration(const unsigned numerator, const unsigned denominator);
+
+	friend Duration operator + (const Duration &d1, const Duration &d2);
 
 	friend bool operator < (const Duration &d1, const Duration &d2);
 	friend bool operator > (const Duration &d1, const Duration &d2);
 	friend bool operator != (const Duration &d1, const Duration &d2);
 	friend bool operator == (const Duration &d1, const Duration &d2);
+
+	Duration & operator += (const Duration &other);
 
 private:
 
