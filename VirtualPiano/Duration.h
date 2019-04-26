@@ -11,6 +11,10 @@ public:
 	friend bool operator == (const Duration &d1, const Duration &d2);
 
 private:
+
+	static unsigned gcd(const unsigned a, const unsigned b);
+	static unsigned lcm(const unsigned a, const unsigned b);
+
 	unsigned numerator_;
 	unsigned denominator_;
 };
