@@ -1,6 +1,8 @@
 #ifndef _DURATION_H_
 #define _DURATION_H_
 
+#include <iostream>
+
 class Duration {
 public:
 	explicit Duration(const unsigned numerator, const unsigned denominator);
@@ -13,6 +15,8 @@ public:
 	friend bool operator == (const Duration &d1, const Duration &d2);
 	friend bool operator <= (const Duration &d1, const Duration &d2);
 	friend bool operator >= (const Duration &d1, const Duration &d2);
+
+	friend std::ostream & operator << (std::ostream & os, const Duration & duration);
 
 	friend Duration abs_difference(const Duration &d1, const Duration &d2);
 

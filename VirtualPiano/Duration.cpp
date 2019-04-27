@@ -83,6 +83,11 @@ bool operator>=(const Duration & d1, const Duration & d2) {
 		>= d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
 }
 
+std::ostream & operator<<(std::ostream & os, const Duration & duration) {
+	os << duration.numerator_ << "/" << duration.denominator_;
+	return os;
+}
+
 Duration abs_difference(const Duration & d1, const Duration & d2) {
 	const auto denominator = Duration::lcm(d1.denominator_, d2.denominator_);
 	const auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);

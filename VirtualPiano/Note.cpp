@@ -1,4 +1,5 @@
 #include "Note.h"
+#include <cctype>
 
 Note::Note(Pitch pitch, Octave octave, const Duration & duration)
 	: MusicSymbol(duration)
@@ -18,7 +19,14 @@ Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & d
 }
 
 std::string Note::to_string() const {
-	std::string ret({ static_cast<char>(this->pitch_) });
+	std::string ret;
+	if (this->duration_ == one_quarter) {
+		ret += static_cast<char>(this->pitch_);
+	}
+	else if (this->duration_ == one_eight) {
+		ret += std::tolower(static_cast<char>(this->pitch_));
+	}
+
 	if (this->accidental_ != NO_ACCIDENTAL) {
 		 ret += static_cast<char>(this->accidental_);
 	}

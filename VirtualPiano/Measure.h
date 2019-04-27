@@ -11,12 +11,15 @@ public:
 	explicit Measure(const Duration & measure_duration);
 
 	Measure(const Measure& other);
-	Measure(Measure&& other);
+	Measure(Measure&& other) = default;
 
 	Measure& operator=(const Measure& other);
-	Measure& operator=(Measure&& other);
+	Measure& operator=(Measure&& other) = default;
 
 	~Measure();
+
+	Duration measure_duration() const;
+	Duration current_duration() const;
 
 	bool push_back(std::unique_ptr<MusicSymbol> music_symbol);
 

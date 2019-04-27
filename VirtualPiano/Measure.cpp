@@ -11,6 +11,14 @@ Measure::~Measure() {
 	this->music_symbols_.clear();
 }
 
+Duration Measure::measure_duration() const {
+	return measure_duration_;
+}
+
+Duration Measure::current_duration() const {
+	return current_duration_;
+}
+
 bool Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
 	if (this->current_duration_ + music_symbol->duration() <= this->measure_duration_) {
 		this->current_duration_ += music_symbol->duration();
@@ -26,6 +34,5 @@ std::ostream & operator<<(std::ostream & os, const Measure & measure) {
 		os << *music_symbol;
 	}
 
-	os << "\n";
 	return os;
 }
