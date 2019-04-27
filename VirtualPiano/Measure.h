@@ -18,7 +18,7 @@ public:
 
 	~Measure();
 
-	void push_back(std::unique_ptr<MusicSymbol> music_symbol);
+	bool push_back(std::unique_ptr<MusicSymbol> music_symbol);
 
 	friend std::ostream & operator << (std::ostream & os, const Measure & measure);
 

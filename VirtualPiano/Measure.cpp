@@ -11,12 +11,14 @@ Measure::~Measure() {
 	this->music_symbols_.clear();
 }
 
-void Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
+bool Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
 	if (this->current_duration_ + music_symbol->duration() <= this->measure_duration_) {
 		this->current_duration_ += music_symbol->duration();
 		this->music_symbols_.push_back(std::move(music_symbol));
+		return true;
 	}
 
+	return false;
 }
 
 std::ostream & operator<<(std::ostream & os, const Measure & measure) {
