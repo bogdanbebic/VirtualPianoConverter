@@ -18,14 +18,14 @@ public:
 
 	~Measure();
 
-	void push_back(std::shared_ptr<MusicSymbol> music_symbol);
+	void push_back(std::unique_ptr<MusicSymbol> music_symbol);
 
 	friend std::ostream & operator << (std::ostream & os, const Measure & measure);
 
 private:
 	Duration measure_duration_;
 	Duration current_duration_;
-	std::vector<std::shared_ptr<MusicSymbol>> music_symbols_;
+	std::vector<std::unique_ptr<MusicSymbol>> music_symbols_;
 };
 
 #endif	// end Measure.h
