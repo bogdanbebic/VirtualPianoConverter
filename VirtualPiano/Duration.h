@@ -14,6 +14,8 @@ public:
 	friend bool operator <= (const Duration &d1, const Duration &d2);
 	friend bool operator >= (const Duration &d1, const Duration &d2);
 
+	friend Duration abs_difference(const Duration &d1, const Duration &d2);
+
 	Duration & operator += (const Duration &other);
 
 private:

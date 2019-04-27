@@ -82,3 +82,12 @@ bool operator>=(const Duration & d1, const Duration & d2) {
 	return d1.numerator_ * (d2.denominator_ / greatest_common_divisor)
 		>= d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
 }
+
+Duration abs_difference(const Duration & d1, const Duration & d2) {
+	const auto denominator = Duration::lcm(d1.denominator_, d2.denominator_);
+	const auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);
+	const auto num1 = d1.numerator_ * (d2.denominator_ / greatest_common_divisor);
+	const auto num2 = d2.numerator_ * (d1.denominator_ / greatest_common_divisor);
+	const auto numerator = num1 >= num2 ? num1 - num2 : num2 - num1;
+	return Duration(numerator, denominator);
+}
