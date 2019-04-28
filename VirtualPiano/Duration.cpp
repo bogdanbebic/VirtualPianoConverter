@@ -88,7 +88,7 @@ std::ostream & operator<<(std::ostream & os, const Duration & duration) {
 	return os;
 }
 
-Duration abs_difference(const Duration & d1, const Duration & d2) {
+Duration Duration::abs_difference(const Duration & d1, const Duration & d2) {
 	const auto denominator = Duration::lcm(d1.denominator_, d2.denominator_);
 	const auto greatest_common_divisor = Duration::gcd(d1.denominator_, d2.denominator_);
 	const auto num1 = d1.numerator_ * (d2.denominator_ / greatest_common_divisor);

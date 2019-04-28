@@ -10,6 +10,10 @@ Duration MusicSymbol::duration() const {
 	return this->duration_;
 }
 
+void MusicSymbol::set_duration(const Duration& duration) {
+	duration_ = duration;
+}
+
 Duration MusicSymbol::one_quarter = Duration(1, 4);
 
 Duration MusicSymbol::one_eight = Duration(1, 8);

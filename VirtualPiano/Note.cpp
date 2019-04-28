@@ -40,6 +40,10 @@ std::unique_ptr<MusicSymbol> Note::clone() const {
 	return std::make_unique<Note>(ret);
 }
 
+void Note::set_legato() {
+	this->legato_ = true;
+}
+
 bool Note::has_no_accidental() const {
 	return this->accidental_ == NO_ACCIDENTAL;
 }

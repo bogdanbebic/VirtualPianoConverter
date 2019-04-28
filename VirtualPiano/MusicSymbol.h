@@ -20,6 +20,8 @@ public:
 
 	Duration duration() const;
 
+	void set_duration(const Duration& duration);
+
 	virtual std::string to_string() const = 0;
 
 	virtual std::unique_ptr<MusicSymbol> clone() const = 0;

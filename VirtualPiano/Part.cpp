@@ -1,4 +1,6 @@
 #include "Part.h"
+#include "VirtualPianoException.h"
+#include "Duration.h"
 
 Part::Part(const Duration & measure_duration)
 	: measure_duration_(measure_duration)
@@ -42,6 +44,26 @@ void Part::push_back(Measure && measure) {
 	}
 	else {
 		throw std::exception("Last measure is not complete, illegal to add new measure after it");
+	}
+
+}
+
+void Part::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
+	auto last_measure = this->measures_.back();
+	try {
+		auto temp = music_symbol->clone();
+		last_measure.push_back(std::move(temp));
+	}
+	catch (MeasureDurationOverflow & e) {
+		// TODO: legato
+		auto temp = music_symbol->clone();
+		const auto difference = Duration::abs_difference(last_measure.current_duration(), last_measure.measure_duration());
+		const auto next_duration = Duration::abs_difference(music_symbol->duration(), difference);
+		music_symbol->set_duration(difference);
+		last_measure.push_back(std::move(music_symbol));
+		temp->set_duration(next_duration);
+		this->measures_.emplace_back(this->measure_duration_);
+		this->push_back(std::move(temp));
 	}
 
 }

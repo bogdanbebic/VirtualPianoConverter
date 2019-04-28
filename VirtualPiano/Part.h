@@ -12,7 +12,7 @@ public:
 
 	void push_back(const Measure & measure);
 	void push_back(Measure && measure);
-	bool push_back(std::unique_ptr<MusicSymbol> music_symbol);
+	void push_back(std::unique_ptr<MusicSymbol> music_symbol);
 
 	friend std::ostream & operator << (std::ostream & os, const Part & part);
 

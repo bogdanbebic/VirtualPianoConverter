@@ -18,7 +18,7 @@ public:
 
 	friend std::ostream & operator << (std::ostream & os, const Duration & duration);
 
-	friend Duration abs_difference(const Duration &d1, const Duration &d2);
+	static Duration abs_difference(const Duration &d1, const Duration &d2);
 
 	Duration & operator += (const Duration &other);
 

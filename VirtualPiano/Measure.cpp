@@ -1,4 +1,5 @@
 #include "Measure.h"
+#include "VirtualPianoException.h"
 
 Measure::Measure(const Duration & measure_duration)
 	: measure_duration_(measure_duration)
@@ -36,7 +37,7 @@ Duration Measure::current_duration() const {
 
 void Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
 	if (this->current_duration_ + music_symbol->duration() > this->measure_duration_) {
-		throw std::exception("Could not fit MusicSymbol to current Measure");
+		throw MeasureDurationOverflow();
 	}
 
 	this->current_duration_ += music_symbol->duration();

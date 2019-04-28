@@ -123,6 +123,7 @@
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="Pause.cpp" />
+    <ClCompile Include="VirtualPianoException.cpp" />
     <ClCompile Include="VirtualPianoParser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <ClInclude Include="Note.h" />
     <ClInclude Include="Part.h" />
     <ClInclude Include="Pause.h" />
+    <ClInclude Include="VirtualPianoException.h" />
     <ClInclude Include="VirtualPianoParser.h" />
   </ItemGroup>
   <ItemGroup>
