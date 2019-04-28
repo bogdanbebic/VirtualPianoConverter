@@ -12,4 +12,14 @@ public:
 	char const* what() const override;
 };
 
+class IllegalMeasureDuration : public VirtualPianoException {
+public:
+	char const* what() const override;
+};
+
+class IncompleteMeasure : public VirtualPianoException {
+public:
+	char const* what() const override;
+};
+
 #endif
