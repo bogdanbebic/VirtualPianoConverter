@@ -118,6 +118,7 @@
     <ClCompile Include="Duration.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Measure.cpp" />
+    <ClCompile Include="MenuInterface.cpp" />
     <ClCompile Include="MusicSymbol.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Part.cpp" />
@@ -127,6 +128,7 @@
   <ItemGroup>
     <ClInclude Include="Duration.h" />
     <ClInclude Include="Measure.h" />
+    <ClInclude Include="MenuInterface.h" />
     <ClInclude Include="MusicSymbol.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Part.h" />
