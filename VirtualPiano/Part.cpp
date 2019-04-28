@@ -6,42 +6,44 @@ Part::Part(const Duration & measure_duration)
 	// empty body
 }
 
-bool Part::push_back(const Measure & measure) {
-	if (measure.measure_duration() == this->measure_duration_ && this->measures_.empty()) {
+void Part::push_back(const Measure & measure) {
+	if (measure.measure_duration() != this->measure_duration_) {
+		throw std::exception("Illegal duration of Measure, does not comply with Part duration");
+	}
+
+	if (this->measures_.empty()) {
 		this->measures_.push_back(measure);
-		return true;
+		return;
 	}
 
 	auto & last_measure = this->measures_.back();
-	if (
-		measure.measure_duration() == this->measure_duration_
-		&& last_measure.current_duration() == last_measure.measure_duration()
-		)
-	{
+	if (last_measure.current_duration() == last_measure.measure_duration())	{
 		this->measures_.push_back(measure);
-		return true;
+	}
+	else {
+		throw std::exception("Last measure is not complete, illegal to add new measure after it");
 	}
 
-	return false;
 }
 
-bool Part::push_back(Measure && measure) {
-	if (measure.measure_duration() == this->measure_duration_ && this->measures_.empty()) {
+void Part::push_back(Measure && measure) {
+	if (measure.measure_duration() != this->measure_duration_) {
+		throw std::exception("Illegal duration of Measure, does not comply with Part duration");
+	}
+
+	if (this->measures_.empty()) {
 		this->measures_.push_back(std::move(measure));
-		return true;
+		return;
 	}
 
 	auto & last_measure = this->measures_.back();
-	if (
-		measure.measure_duration() == this->measure_duration_
-		&& last_measure.current_duration() == last_measure.measure_duration()
-		)
-	{
+	if (last_measure.current_duration() == last_measure.measure_duration())	{
 		this->measures_.push_back(std::move(measure));
-		return true;
+	}
+	else {
+		throw std::exception("Last measure is not complete, illegal to add new measure after it");
 	}
 
-	return false;
 }
 
 std::ostream & operator<<(std::ostream & os, const Part & part) {

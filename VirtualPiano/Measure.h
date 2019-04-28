@@ -21,7 +21,7 @@ public:
 	Duration measure_duration() const;
 	Duration current_duration() const;
 
-	bool push_back(std::unique_ptr<MusicSymbol> music_symbol);
+	void push_back(std::unique_ptr<MusicSymbol> music_symbol);
 
 	friend std::ostream & operator << (std::ostream & os, const Measure & measure);
 

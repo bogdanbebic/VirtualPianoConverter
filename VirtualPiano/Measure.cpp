@@ -34,14 +34,13 @@ Duration Measure::current_duration() const {
 	return current_duration_;
 }
 
-bool Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
-	if (this->current_duration_ + music_symbol->duration() <= this->measure_duration_) {
-		this->current_duration_ += music_symbol->duration();
-		this->music_symbols_.push_back(std::move(music_symbol));
-		return true;
+void Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
+	if (this->current_duration_ + music_symbol->duration() > this->measure_duration_) {
+		throw std::exception("Could not fit MusicSymbol to current Measure");
 	}
 
-	return false;
+	this->current_duration_ += music_symbol->duration();
+	this->music_symbols_.push_back(std::move(music_symbol));
 }
 
 void Measure::clone(const Measure & other) {
