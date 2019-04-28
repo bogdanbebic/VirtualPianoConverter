@@ -18,6 +18,11 @@ std::string Pause::to_string() const {
 	return ret;
 }
 
+std::unique_ptr<MusicSymbol> Pause::clone() const {
+	auto ret{ *this };
+	return std::make_unique<Pause>(ret);
+}
+
 std::ostream & operator<<(std::ostream & os, const Pause & pause) {
 	os << pause.to_string();
 	return os;

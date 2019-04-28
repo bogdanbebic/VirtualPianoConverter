@@ -7,6 +7,21 @@ Measure::Measure(const Duration & measure_duration)
 	// empty body
 }
 
+Measure::Measure(const Measure & other)
+	: measure_duration_(other.measure_duration_)
+	, current_duration_(Duration(0, 1))
+{
+	this->clone(other);
+}
+
+Measure & Measure::operator=(const Measure & other) {
+	if (this != &other) {
+		this->clone(other);
+	}
+
+	return *this;
+}
+
 Measure::~Measure() {
 	this->music_symbols_.clear();
 }
@@ -27,6 +42,14 @@ bool Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
 	}
 
 	return false;
+}
+
+void Measure::clone(const Measure & other) {
+	this->measure_duration_ = other.measure_duration_;
+	for (auto & music_symbol_ptr : other.music_symbols_) {
+		this->push_back(music_symbol_ptr->clone());
+	}
+
 }
 
 std::ostream & operator<<(std::ostream & os, const Measure & measure) {

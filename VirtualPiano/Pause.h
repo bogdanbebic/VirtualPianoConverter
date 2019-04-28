@@ -9,6 +9,8 @@ public:
 
 	std::string to_string() const override;
 
+	std::unique_ptr<MusicSymbol> clone() const override;
+	
 	friend std::ostream & operator << (std::ostream & os, const Pause & pause);
 
 };

@@ -26,6 +26,8 @@ public:
 	friend std::ostream & operator << (std::ostream & os, const Measure & measure);
 
 private:
+	void clone(const Measure & other);
+
 	Duration measure_duration_;
 	Duration current_duration_;
 	std::vector<std::unique_ptr<MusicSymbol>> music_symbols_;

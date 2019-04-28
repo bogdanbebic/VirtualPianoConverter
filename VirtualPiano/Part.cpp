@@ -8,7 +8,7 @@ Part::Part(const Duration & measure_duration)
 
 bool Part::push_back(const Measure & measure) {
 	if (measure.measure_duration() == this->measure_duration_ && this->measures_.empty()) {
-		//this->measures_.push_back(measure);
+		this->measures_.push_back(measure);
 		return true;
 	}
 
@@ -18,7 +18,7 @@ bool Part::push_back(const Measure & measure) {
 		&& last_measure.current_duration() == last_measure.measure_duration()
 		)
 	{
-		//this->measures_.push_back(measure);
+		this->measures_.push_back(measure);
 		return true;
 	}
 

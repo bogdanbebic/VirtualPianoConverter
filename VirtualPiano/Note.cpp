@@ -35,6 +35,11 @@ std::string Note::to_string() const {
 	return ret;
 }
 
+std::unique_ptr<MusicSymbol> Note::clone() const {
+	auto ret{ *this };
+	return std::make_unique<Note>(ret);
+}
+
 bool Note::has_no_accidental() const {
 	return this->accidental_ == NO_ACCIDENTAL;
 }

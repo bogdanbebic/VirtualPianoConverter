@@ -14,6 +14,8 @@ public:
 
 	std::string to_string() const override;
 
+	std::unique_ptr<MusicSymbol> clone() const override;
+
 	friend std::ostream & operator << (std::ostream & os, const Note & note);
 
 	bool has_no_accidental() const;
