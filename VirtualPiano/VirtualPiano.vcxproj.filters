@@ -74,6 +74,9 @@
     <ClInclude Include="VirtualPianoException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Composition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\map.csv">

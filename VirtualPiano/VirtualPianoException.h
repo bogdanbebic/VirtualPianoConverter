@@ -22,4 +22,9 @@ public:
 	char const* what() const override;
 };
 
+class IncompatibleNumberOfParts : VirtualPianoException {
+public:
+	char const* what() const override;
+};
+
 #endif

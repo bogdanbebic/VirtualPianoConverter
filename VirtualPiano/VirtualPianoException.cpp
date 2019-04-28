@@ -15,3 +15,7 @@ char const * IllegalMeasureDuration::what() const {
 char const * IncompleteMeasure::what() const {
 	return "\n*** Error: Last measure is not complete, illegal to add new measure after it ***\n";
 }
+
+char const * IncompatibleNumberOfParts::what() const {
+	return "\n*** Error: Incompatible number of parts ***\n";
+}

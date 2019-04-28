@@ -10,7 +10,7 @@ Part::Part(const Duration & measure_duration)
 
 void Part::push_back(const Measure & measure) {
 	if (measure.measure_duration() != this->measure_duration_) {
-		throw std::exception("Illegal duration of Measure, does not comply with Part duration");
+		throw IllegalMeasureDuration();
 	}
 
 	if (this->measures_.empty()) {
@@ -23,7 +23,7 @@ void Part::push_back(const Measure & measure) {
 		this->measures_.push_back(measure);
 	}
 	else {
-		throw std::exception("Last measure is not complete, illegal to add new measure after it");
+		throw IncompleteMeasure();
 	}
 
 }

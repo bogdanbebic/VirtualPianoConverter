@@ -127,6 +127,7 @@
     <ClCompile Include="VirtualPianoParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Composition.h" />
     <ClInclude Include="Duration.h" />
     <ClInclude Include="Measure.h" />
     <ClInclude Include="MenuInterface.h" />
