@@ -1,19 +1,21 @@
 #include "Note.h"
 #include <cctype>
 
-Note::Note(Pitch pitch, Octave octave, const Duration & duration)
+Note::Note(Pitch pitch, Octave octave, const Duration & duration, bool is_in_chord)
 	: MusicSymbol(duration)
 	, pitch_(pitch)
 	, octave_(octave)
+	, is_in_chord_(is_in_chord)
 {
 	// empty body
 }
 
-Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration)
+Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration, bool is_in_chord)
 	: MusicSymbol(duration)
 	, pitch_(pitch)
 	, accidental_(accidental)
 	, octave_(octave)
+	, is_in_chord_(is_in_chord)
 {
 	// empty body
 }
