@@ -42,6 +42,10 @@ std::unique_ptr<MusicSymbol> Note::clone() const {
 	return std::make_unique<Note>(ret);
 }
 
+bool Note::is_in_chord() const {
+	return this->is_in_chord_;
+}
+
 void Note::set_legato() {
 	this->legato_ = true;
 }

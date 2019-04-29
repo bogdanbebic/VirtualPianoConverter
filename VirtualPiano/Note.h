@@ -18,6 +18,7 @@ public:
 
 	friend std::ostream & operator << (std::ostream & os, const Note & note);
 
+	bool is_in_chord() const;
 	void set_legato();
 	bool has_no_accidental() const;
 	bool is_sharp() const;
