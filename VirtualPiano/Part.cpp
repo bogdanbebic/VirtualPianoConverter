@@ -49,7 +49,19 @@ void Part::push_back(Measure && measure) {
 }
 
 void Part::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
+	if (this->measures_.empty()) {
+		this->measures_.emplace_back(this->measure_duration_);
+	}
+
 	this->measures_.back().push_back(std::move(music_symbol));
+}
+
+Duration Part::measure_duration() const {
+	return this->measure_duration_;
+}
+
+const Measure & Part::back() const {
+	return this->measures_.back();
 }
 
 std::ostream & operator<<(std::ostream & os, const Part & part) {

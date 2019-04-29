@@ -14,8 +14,8 @@ public:
 	explicit Composition(const Duration & measure_duration);
 	explicit Composition(std::vector<Duration> measure_durations);
 
-	void push_back(std::unique_ptr<Note> note_ptr, part_id part_id);
-	void push_back(std::unique_ptr<Pause> pause_ptr, part_id part_id);
+	void push_back(std::unique_ptr<Note> note_ptr, part_id id);
+	void push_back(std::unique_ptr<Pause> pause_ptr, part_id id);
 
 private:
 	std::vector<Part> parts_;
@@ -38,6 +38,50 @@ Composition<NumberOfParts>::Composition(std::vector<Duration> measure_durations)
 
 	for (auto & measure_duration : measure_durations) {
 		parts_.push_back(Part(measure_duration));
+	}
+
+}
+
+template<unsigned NumberOfParts>
+void Composition<NumberOfParts>::push_back(std::unique_ptr<Note> note_ptr, part_id id) {
+	try {
+		auto temp = std::make_unique<Note>(Note(*note_ptr));
+		this->parts_[id].push_back(std::move(temp));
+	}
+	catch (MeasureDurationOverflow &) {
+		auto temp = std::make_unique<Note>(Note(*note_ptr));
+		auto & last_measure = this->parts_[id].back();
+		auto duration_left_in_measure = Duration::abs_difference(last_measure.measure_duration(), last_measure.current_duration());
+		if (duration_left_in_measure != Duration(0, 1)) {
+			temp->set_duration(duration_left_in_measure);
+			note_ptr->set_duration(Duration::abs_difference(note_ptr->duration(), duration_left_in_measure));
+			temp->set_legato();
+			note_ptr->set_legato();
+			this->parts_[id].push_back(std::move(temp));
+		}
+		this->parts_[id].push_back(Measure(this->parts_[id].measure_duration()));
+		this->push_back(std::move(note_ptr), id);
+	}
+	
+}
+
+template <unsigned NumberOfParts>
+void Composition<NumberOfParts>::push_back(std::unique_ptr<Pause> pause_ptr, part_id id) {
+	try {
+		auto temp = pause_ptr->clone();
+		this->parts_[id].push_back(std::move(temp));
+	}
+	catch (MeasureDurationOverflow &) {
+		auto temp = pause_ptr->clone();
+		auto & last_measure = this->parts_[id].back();
+		auto duration_left_in_measure = Duration::abs_difference(last_measure.measure_duration(), last_measure.current_duration());
+		if (duration_left_in_measure != Duration(0, 1)) {
+			temp->set_duration(duration_left_in_measure);
+			pause_ptr->set_duration(Duration::abs_difference(pause_ptr->duration(), duration_left_in_measure));
+			this->parts_[id].push_back(std::move(temp));
+		}
+		this->parts_[id].push_back(Measure(this->parts_[id].measure_duration()));
+		this->push_back(std::move(pause_ptr), id);
 	}
 
 }

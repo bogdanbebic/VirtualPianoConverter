@@ -16,6 +16,10 @@ public:
 
 	friend std::ostream & operator << (std::ostream & os, const Part & part);
 
+	Duration measure_duration() const;
+
+	const Measure & back() const;
+
 private:
 	Duration measure_duration_;
 	std::vector<Measure> measures_;

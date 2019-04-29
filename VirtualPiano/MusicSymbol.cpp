@@ -11,7 +11,7 @@ Duration MusicSymbol::duration() const {
 }
 
 void MusicSymbol::set_duration(const Duration& duration) {
-	duration_ = duration;
+	this->duration_ = duration;
 }
 
 Duration MusicSymbol::one_quarter = Duration(1, 4);
