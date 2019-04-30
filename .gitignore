@@ -332,3 +332,6 @@ ASALocalRun/
 
 # Resource files
 VirtualPiano/resource/*
+
+# midifile library
+VirtualPiano/midifile/*
