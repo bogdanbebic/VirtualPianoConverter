@@ -8,7 +8,11 @@
 
 using part_id = unsigned;
 
-template <unsigned NumberOfParts = 2U>
+namespace composition {
+	extern const unsigned default_number_of_parts;
+}
+
+template <unsigned NumberOfParts = composition::default_number_of_parts>
 class Composition {
 public:
 	explicit Composition(const Duration & measure_duration);

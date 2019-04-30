@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\midifile">
+      <UniqueIdentifier>{dc599fba-cae7-492d-b989-c5155ea61682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\midifile">
+      <UniqueIdentifier>{dc09012f-80e1-49f6-a274-21f1b6889a3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VirtualPianoParser.cpp">
@@ -45,6 +51,27 @@
     <ClCompile Include="VirtualPianoException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="midifile\src\Binasc.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="midifile\src\MidiEvent.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="midifile\src\MidiEventList.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="midifile\src\MidiFile.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="midifile\src\MidiMessage.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="midifile\src\Options.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="Composition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VirtualPianoParser.h">
@@ -75,6 +102,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Composition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\Binasc.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\MidiEvent.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\MidiEventList.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\MidiFile.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\MidiMessage.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="midifile\include\Options.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="Formatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

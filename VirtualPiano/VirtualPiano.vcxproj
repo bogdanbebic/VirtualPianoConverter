@@ -76,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Bogdan\Documents\GitHub\VirtualPiano\VirtualPiano\midifile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +95,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Bogdan\Documents\GitHub\VirtualPiano\VirtualPiano\midifile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -115,10 +117,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Composition.cpp" />
     <ClCompile Include="Duration.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Measure.cpp" />
     <ClCompile Include="MenuInterface.cpp" />
+    <ClCompile Include="midifile\src\Binasc.cpp" />
+    <ClCompile Include="midifile\src\MidiEvent.cpp" />
+    <ClCompile Include="midifile\src\MidiEventList.cpp" />
+    <ClCompile Include="midifile\src\MidiFile.cpp" />
+    <ClCompile Include="midifile\src\MidiMessage.cpp" />
+    <ClCompile Include="midifile\src\Options.cpp" />
     <ClCompile Include="MusicSymbol.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Part.cpp" />
@@ -129,8 +138,15 @@
   <ItemGroup>
     <ClInclude Include="Composition.h" />
     <ClInclude Include="Duration.h" />
+    <ClInclude Include="Formatter.h" />
     <ClInclude Include="Measure.h" />
     <ClInclude Include="MenuInterface.h" />
+    <ClInclude Include="midifile\include\Binasc.h" />
+    <ClInclude Include="midifile\include\MidiEvent.h" />
+    <ClInclude Include="midifile\include\MidiEventList.h" />
+    <ClInclude Include="midifile\include\MidiFile.h" />
+    <ClInclude Include="midifile\include\MidiMessage.h" />
+    <ClInclude Include="midifile\include\Options.h" />
     <ClInclude Include="MusicSymbol.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Part.h" />
