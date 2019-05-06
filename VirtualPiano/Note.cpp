@@ -1,21 +1,21 @@
 #include "Note.h"
 #include <cctype>
 
-Note::Note(Pitch pitch, Octave octave, const Duration & duration, bool is_in_chord)
+Note::Note(Pitch pitch, Octave octave, const Duration & duration, bool is_in_chord_with_previous)
 	: MusicSymbol(duration)
 	, pitch_(pitch)
 	, octave_(octave)
-	, is_in_chord_(is_in_chord)
+	, is_in_chord_with_previous_(is_in_chord_with_previous)
 {
 	// empty body
 }
 
-Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration, bool is_in_chord)
+Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration, bool is_in_chord_with_previous)
 	: MusicSymbol(duration)
 	, pitch_(pitch)
 	, accidental_(accidental)
 	, octave_(octave)
-	, is_in_chord_(is_in_chord)
+	, is_in_chord_with_previous_(is_in_chord_with_previous)
 {
 	// empty body
 }
@@ -37,13 +37,17 @@ std::string Note::to_string() const {
 	return ret;
 }
 
+Duration Note::duration() const {
+	return this->is_in_chord_with_previous_ ? Duration(0, 1) : this->duration_;
+}
+
 std::unique_ptr<MusicSymbol> Note::clone() const {
 	auto ret{ *this };
 	return std::make_unique<Note>(ret);
 }
 
-bool Note::is_in_chord() const {
-	return this->is_in_chord_;
+bool Note::is_in_chord_with_previous() const {
+	return this->is_in_chord_with_previous_;
 }
 
 void Note::set_legato() {

@@ -18,7 +18,7 @@ public:
 	virtual ~MusicSymbol() = default;
 
 
-	Duration duration() const;
+	virtual Duration duration() const;
 
 	void set_duration(const Duration& duration);
 
