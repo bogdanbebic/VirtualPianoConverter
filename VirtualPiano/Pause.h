@@ -13,6 +13,7 @@ public:
 	
 	friend std::ostream & operator << (std::ostream & os, const Pause & pause);
 
+	std::string to_mxml() override;
 };
 
 #endif	// end Pause.h

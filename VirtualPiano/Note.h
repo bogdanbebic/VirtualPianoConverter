@@ -21,16 +21,20 @@ public:
 	friend std::ostream & operator << (std::ostream & os, const Note & note);
 
 	bool is_in_chord_with_previous() const;
-	void set_legato();
+	void set_legato_start();
+	void set_legato_end();
 	bool has_no_accidental() const;
 	bool is_sharp() const;
+
+	std::string to_mxml() override;
 
 private:
 	Pitch pitch_;
 	Accidental accidental_ = NO_ACCIDENTAL;
 	Octave octave_;
 	bool is_in_chord_with_previous_ = false;
-	bool legato_ = false;
+	bool legato_start_ = false;
+	bool legato_end_ = false;
 };
 
 #endif	// end Note.h

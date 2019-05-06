@@ -9,7 +9,7 @@
 using part_id = unsigned;
 
 namespace composition {
-	extern const unsigned default_number_of_parts;
+	constexpr unsigned default_number_of_parts = 2U;
 }
 
 template <unsigned NumberOfParts = composition::default_number_of_parts>
@@ -61,10 +61,11 @@ void Composition<NumberOfParts>::push_back(std::unique_ptr<Note> note_ptr, part_
 		if (duration_left_in_measure != Duration(0, 1)) {
 			temp->set_duration(duration_left_in_measure);
 			note_ptr->set_duration(Duration::abs_difference(note_ptr->duration(), duration_left_in_measure));
-			temp->set_legato();
-			note_ptr->set_legato();
+			temp->set_legato_start();
+			note_ptr->set_legato_end();
 			this->parts_[id].push_back(std::move(temp));
 		}
+
 		this->parts_[id].push_back(Measure(this->parts_[id].measure_duration()));
 		this->push_back(std::move(note_ptr), id);
 	}

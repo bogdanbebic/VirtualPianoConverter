@@ -50,8 +50,12 @@ bool Note::is_in_chord_with_previous() const {
 	return this->is_in_chord_with_previous_;
 }
 
-void Note::set_legato() {
-	this->legato_ = true;
+void Note::set_legato_start() {
+	this->legato_start_ = true;
+}
+
+void Note::set_legato_end() {
+	this->legato_end_ = true;
 }
 
 bool Note::has_no_accidental() const {
@@ -60,6 +64,30 @@ bool Note::has_no_accidental() const {
 
 bool Note::is_sharp() const {
 	return this->accidental_ == SHARP;
+}
+
+std::string Note::to_mxml() {
+	auto ret = std::string("\t<note>\n")
+		+ "\t\t<pitch>\n"
+		+ "\t\t\t<step>" + static_cast<char>(this->pitch_) + "</step>\n"
+		+ "\t\t\t<octave>" + std::to_string(this->octave_) + "</octave>\n"
+		+ "\t\t</pitch>\n"
+		+ "\t\t<duration>" + std::to_string(duration_to_mxml_duration(this->duration_)) + "</duration>\n";
+
+	if (this->is_in_chord_with_previous_) {
+		ret += "\t\t<chord/>\n";
+	}
+
+	if (this->legato_start_) {
+		ret += "\t\t<tie type=\"start\"/>\n";
+	}
+
+	if (this->legato_end_) {
+		ret += "\t\t<tie type=\"end\"/>\n";
+	}
+
+	ret += "\t</note>\n";
+	return ret;
 }
 
 std::ostream & operator<<(std::ostream & os, const Note & note) {

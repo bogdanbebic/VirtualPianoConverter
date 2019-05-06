@@ -30,7 +30,10 @@ public:
 
 	static Duration one_quarter;
 	static Duration one_eight;
-	
+
+	virtual std::string to_mxml() = 0;
+
+	static unsigned duration_to_mxml_duration(const Duration & duration);
 protected:
 	Duration duration_;
 };
