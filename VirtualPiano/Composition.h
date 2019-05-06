@@ -21,6 +21,8 @@ public:
 	void push_back(std::unique_ptr<Note> note_ptr, part_id id);
 	void push_back(std::unique_ptr<Pause> pause_ptr, part_id id);
 
+	unsigned num_parts() const;
+
 private:
 	std::vector<Part> parts_;
 };
@@ -88,6 +90,11 @@ void Composition<NumberOfParts>::push_back(std::unique_ptr<Pause> pause_ptr, par
 		this->push_back(std::move(pause_ptr), id);
 	}
 
+}
+
+template<unsigned NumberOfParts>
+unsigned Composition<NumberOfParts>::num_parts() const {
+	return this->parts_.size();
 }
 
 #endif

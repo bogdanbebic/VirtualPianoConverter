@@ -1,7 +1,6 @@
 #ifndef _FORMATTER_H_
 #define _FORMATTER_H_
 
-#include <string>
 #include <fstream>
 
 #include "Composition.h"
@@ -17,16 +16,9 @@ public:
 	Formatter& operator = (const Formatter & other) = default;
 	Formatter& operator = (Formatter && other) = default;
 
-	virtual std::string to_string(const Composition<NumberOfParts> & composition) const = 0;
-
-	void output_to_file(std::ofstream & file, const Composition<NumberOfParts> & composition) const;
+	virtual void generate_output_file(std::ostream & out_file, Composition<NumberOfParts> composition) = 0;
 
 	virtual ~Formatter() = default;
 };
-
-template <unsigned NumberOfParts>
-void Formatter<NumberOfParts>::output_to_file(std::ofstream& file, const Composition<NumberOfParts>& composition) const {
-	file << this->to_string(composition);
-}
 
 #endif
