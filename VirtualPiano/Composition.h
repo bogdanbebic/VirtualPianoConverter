@@ -23,6 +23,9 @@ public:
 
 	unsigned num_parts() const;
 
+	std::vector<Part>::reference at(part_id pos);
+	std::vector<Part>::const_reference at(part_id pos) const;
+
 	std::vector<Part>::iterator begin();
 	std::vector<Part>::const_iterator begin() const;
 	std::vector<Part>::iterator end();
@@ -101,6 +104,16 @@ void Composition<NumberOfParts>::push_back(std::unique_ptr<Pause> pause_ptr, par
 template<unsigned NumberOfParts>
 unsigned Composition<NumberOfParts>::num_parts() const {
 	return this->parts_.size();
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::reference Composition<NumberOfParts>::at(part_id pos) {
+	return this->parts_.at(pos);
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::const_reference Composition<NumberOfParts>::at(part_id pos) const {
+	return this->parts_.at(pos);
 }
 
 template<unsigned NumberOfParts>
