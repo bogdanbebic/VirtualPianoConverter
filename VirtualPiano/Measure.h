@@ -21,6 +21,11 @@ public:
 	Duration measure_duration() const;
 	Duration current_duration() const;
 
+	std::vector<std::unique_ptr<MusicSymbol>>::iterator begin();
+	std::vector<std::unique_ptr<MusicSymbol>>::const_iterator begin() const;
+	std::vector<std::unique_ptr<MusicSymbol>>::iterator end();
+	std::vector<std::unique_ptr<MusicSymbol>>::const_iterator end() const;
+
 	void push_back(std::unique_ptr<MusicSymbol> music_symbol);
 
 	friend std::ostream & operator << (std::ostream & os, const Measure & measure);

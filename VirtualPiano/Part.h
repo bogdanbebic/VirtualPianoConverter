@@ -20,6 +20,11 @@ public:
 
 	const Measure & back() const;
 
+	std::vector<Measure>::iterator begin();
+	std::vector<Measure>::const_iterator begin() const;
+	std::vector<Measure>::iterator end();
+	std::vector<Measure>::const_iterator end() const;
+
 private:
 	Duration measure_duration_;
 	std::vector<Measure> measures_;

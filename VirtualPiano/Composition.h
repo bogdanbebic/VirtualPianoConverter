@@ -23,6 +23,11 @@ public:
 
 	unsigned num_parts() const;
 
+	std::vector<Part>::iterator begin();
+	std::vector<Part>::const_iterator begin() const;
+	std::vector<Part>::iterator end();
+	std::vector<Part>::const_iterator end() const;
+
 private:
 	std::vector<Part> parts_;
 };
@@ -96,6 +101,26 @@ void Composition<NumberOfParts>::push_back(std::unique_ptr<Pause> pause_ptr, par
 template<unsigned NumberOfParts>
 unsigned Composition<NumberOfParts>::num_parts() const {
 	return this->parts_.size();
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::iterator Composition<NumberOfParts>::begin() {
+	return this->parts_.begin();
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::const_iterator Composition<NumberOfParts>::begin() const {
+	return this->parts_.begin();
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::iterator Composition<NumberOfParts>::end() {
+	return this->parts_.end();
+}
+
+template<unsigned NumberOfParts>
+std::vector<Part>::const_iterator Composition<NumberOfParts>::end() const {
+	return this->parts_.end();
 }
 
 #endif

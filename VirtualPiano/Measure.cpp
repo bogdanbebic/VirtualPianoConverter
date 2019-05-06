@@ -35,6 +35,22 @@ Duration Measure::current_duration() const {
 	return current_duration_;
 }
 
+std::vector<std::unique_ptr<MusicSymbol>>::iterator Measure::begin() {
+	return this->music_symbols_.begin();
+}
+
+std::vector<std::unique_ptr<MusicSymbol>>::const_iterator Measure::begin() const {
+	return this->music_symbols_.begin();
+}
+
+std::vector<std::unique_ptr<MusicSymbol>>::iterator Measure::end() {
+	return this->music_symbols_.end();
+}
+
+std::vector<std::unique_ptr<MusicSymbol>>::const_iterator Measure::end() const {
+	return this->music_symbols_.end();
+}
+
 void Measure::push_back(std::unique_ptr<MusicSymbol> music_symbol) {
 	if (this->current_duration_ + music_symbol->duration() > this->measure_duration_) {
 		throw MeasureDurationOverflow();

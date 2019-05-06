@@ -64,6 +64,22 @@ const Measure & Part::back() const {
 	return this->measures_.back();
 }
 
+std::vector<Measure>::iterator Part::begin() {
+	return this->measures_.begin();
+}
+
+std::vector<Measure>::const_iterator Part::begin() const {
+	return this->measures_.begin();
+}
+
+std::vector<Measure>::iterator Part::end() {
+	return this->measures_.end();
+}
+
+std::vector<Measure>::const_iterator Part::end() const {
+	return this->measures_.end();
+}
+
 std::ostream & operator<<(std::ostream & os, const Part & part) {
 	os << "Measure duration: " << part.measure_duration_ << "\n";
 	for (auto & measure : part.measures_) {
