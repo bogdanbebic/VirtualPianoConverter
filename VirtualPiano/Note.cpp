@@ -71,6 +71,7 @@ std::string Note::to_mxml() {
 		+ "\t\t<pitch>\n"
 		+ "\t\t\t<step>" + static_cast<char>(this->pitch_) + "</step>\n"
 		+ "\t\t\t<octave>" + std::to_string(this->octave_) + "</octave>\n"
+		+ (this->is_sharp() ? "<alter>1</alter>\n" : "")
 		+ "\t\t</pitch>\n"
 		+ "\t\t<duration>" + std::to_string(duration_to_mxml_duration(this->duration_)) + "</duration>\n";
 

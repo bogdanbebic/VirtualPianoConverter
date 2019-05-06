@@ -19,6 +19,14 @@ Duration & Duration::operator+=(const Duration & other) {
 	return *this;
 }
 
+unsigned Duration::numerator() const {
+	return this->numerator_;
+}
+
+unsigned Duration::denominator() const {
+	return this->denominator_;
+}
+
 unsigned Duration::gcd(const unsigned a, const unsigned b) {
 	if (b == 0) {
 		return a;

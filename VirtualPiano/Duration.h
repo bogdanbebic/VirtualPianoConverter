@@ -22,6 +22,9 @@ public:
 
 	Duration & operator += (const Duration &other);
 
+	unsigned numerator() const;
+	unsigned denominator() const;
+
 private:
 
 	static unsigned gcd(const unsigned a, const unsigned b);
