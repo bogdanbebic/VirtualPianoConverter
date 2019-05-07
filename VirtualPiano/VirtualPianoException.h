@@ -27,4 +27,9 @@ public:
 	char const* what() const override;
 };
 
+class IllegalMapingFileFormat : VirtualPianoException {
+public:
+	char const* what() const override;
+};
+
 #endif

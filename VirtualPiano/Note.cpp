@@ -92,7 +92,12 @@ std::string Note::to_mxml() {
 }
 
 midi_formatter::midi_numbers Note::to_midi() {
-	auto midi_number = 65; // TODO: map
+	std::string (*to_upper)(std::string in_str) = [](std::string in_str) {
+		for (auto & ch : in_str) { ch = std::toupper(ch); }
+		return in_str;
+	};
+
+	const auto midi_number = midi_formatter::note_str_to_midi_number[to_upper(this->to_string())];
 	auto midi_rhythm = 0;
 	if (this->duration_ == one_quarter) {
 		midi_rhythm = 2;

@@ -10,3 +10,5 @@ midi_formatter::MidiNumbersStruct::MidiNumbersStruct(int midi_rhythm, bool is_pa
 	this->midi_rhythm = midi_rhythm;
 	this->is_pause = is_pause;
 }
+
+std::map<std::string, int> midi_formatter::note_str_to_midi_number;

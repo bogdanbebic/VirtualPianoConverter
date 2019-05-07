@@ -2,8 +2,9 @@
 #include <string>
 
 #include "MenuInterface.h"
-
 #include "VirtualPianoParser.h"
+#include "MidiNumbersStruct.h"
+#include "Formatter.h"
 
 int main(int argc, char* argv[]) {
 	std::cout << "Hello, World!" << std::endl;
@@ -18,6 +19,15 @@ int main(int argc, char* argv[]) {
 	}
 
 	VirtualPianoParser parser{ mapping_file_path };
+	try {
+		parser.parse_mapping_file(midi_formatter::note_str_to_midi_number);
+	}
+	catch (IllegalMapingFileFormat & ex) {
+		std::cerr << ex.what();
+		std::cout << "Fatal error occured, terminating\n";
+		system("pause");
+		return 0;
+	}
 
 	while (MenuInterface::is_program_running()) {
 		try {

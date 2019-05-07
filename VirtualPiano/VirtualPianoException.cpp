@@ -19,3 +19,7 @@ char const * IncompleteMeasure::what() const {
 char const * IncompatibleNumberOfParts::what() const {
 	return "\n*** Error: Incompatible number of parts ***\n";
 }
+
+char const * IllegalMapingFileFormat::what() const {
+	return "\n*** Error: Illegal mapping file format ***\n";
+}
