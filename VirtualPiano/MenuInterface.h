@@ -2,6 +2,7 @@
 #define _MENUINTERFACE_H_
 
 #include <iostream>
+#include "Composition.h"
 
 class MenuInterface {
 public:
@@ -9,7 +10,7 @@ public:
 
 	static void read_menu_option(std::istream& is = std::cin);
 
-	static void execute_option();
+	static void execute_option(Composition<2U> & composition, std::istream& is = std::cin);
 
 	static bool is_program_running() {
 		return is_program_running_;
@@ -24,11 +25,12 @@ public:
 	};
 
 private:
-	enum MenuOptions { EXIT, NUM_OF_OPTIONS };
+	enum MenuOptions { EXIT, LOAD_COMPOSITION, EXPORT_MIDI, EXPORT_XML, EXPORT_BMP, 
+		ITERATE_THROUGH_COMPOSITION, PRINT_COMPOSITION, NUM_OF_OPTIONS };
 
 	static MenuOptions menu_option_;
 	static bool is_program_running_;
-
+	static bool has_exported_;
 };
 
 #endif

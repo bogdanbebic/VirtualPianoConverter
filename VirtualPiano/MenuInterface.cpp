@@ -1,7 +1,16 @@
 #include "MenuInterface.h"
+#include "MidiFormatter.h"
+#include "MxmlFormatter.h"
 
 void MenuInterface::print_menu() {
-	std::cout << "0. Exit program\n"
+	std::cout 
+		<< LOAD_COMPOSITION << ". Load composition\n"
+		<< EXPORT_MIDI << ". Export midi\n"
+		<< EXPORT_XML << ". Export xml\n"
+		<< EXPORT_BMP << ". Export bmp\n"
+		<< ITERATE_THROUGH_COMPOSITION << ". Iterate through composition\n"
+		<< PRINT_COMPOSITION << ". Print composition\n"
+		<< EXIT << ". Exit program\n"
 		<< "Choose menu option (index of option): ";
 }
 
@@ -16,16 +25,59 @@ void MenuInterface::read_menu_option(std::istream& is) {
 
 }
 
-void MenuInterface::execute_option() {
+void MenuInterface::execute_option(Composition<2U> & composition, std::istream& is) {
+	MidiFormatter<2U> midi_formatter;
+	MxmlFormatter<2U> mxml_formatter;
+	std::string out_file_path;
+	char yes_no;
 	switch (menu_option_) {
 	case EXIT:
+		if (!has_exported_) {
+			std::cout << "You have not exported any files\n"
+				<< "Are you sure you want to quit (y/n)?";
+			is >> yes_no;
+			if (yes_no == 'n') {
+				break;
+			}
+
+		}
+
 		is_program_running_ = false;
 		break;
-	default:
+	case LOAD_COMPOSITION:
+		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
 		break;
+	case EXPORT_MIDI:
+		std::cout << "Enter out file path:\n";
+		is >> out_file_path;
+		midi_formatter.generate_output_file(out_file_path, composition);
+		has_exported_ = true;
+		break;
+	case EXPORT_XML:
+		std::cout << "Enter out file path:\n";
+		is >> out_file_path;
+		mxml_formatter.generate_output_file(out_file_path, composition);
+		has_exported_ = true;
+		break;
+	case EXPORT_BMP:
+		std::cout << "Enter out file path:\n";
+		is >> out_file_path;
+		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		has_exported_ = true;
+		break;
+	case ITERATE_THROUGH_COMPOSITION:
+		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		break;
+	case PRINT_COMPOSITION:
+		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		break;
+	default: 
+		break;
+
 	}
 
 }
 
 bool MenuInterface::is_program_running_ = true;
 MenuInterface::MenuOptions MenuInterface::menu_option_ = EXIT;
+bool MenuInterface::has_exported_ = false;

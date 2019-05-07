@@ -29,11 +29,13 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 
+	Composition<2U> composition{Duration(0, 1)};
+
 	while (MenuInterface::is_program_running()) {
 		try {
 			MenuInterface::print_menu();
 			MenuInterface::read_menu_option();
-			MenuInterface::execute_option();
+			MenuInterface::execute_option(composition);
 		}
 		catch (MenuInterface::InvalidMenuOption& ex) {
 			std::cerr << ex.what();
