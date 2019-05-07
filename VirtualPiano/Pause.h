@@ -14,6 +14,7 @@ public:
 	friend std::ostream & operator << (std::ostream & os, const Pause & pause);
 
 	std::string to_mxml() override;
+	midi_formatter::midi_numbers to_midi() override;
 };
 
 #endif	// end Pause.h

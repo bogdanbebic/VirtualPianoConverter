@@ -91,6 +91,19 @@ std::string Note::to_mxml() {
 	return ret;
 }
 
+midi_formatter::midi_numbers Note::to_midi() {
+	auto midi_number = 65; // TODO: map
+	auto midi_rhythm = 0;
+	if (this->duration_ == one_quarter) {
+		midi_rhythm = 2;
+	}
+	else if (this->duration_ == one_eight) {
+		midi_rhythm = 1;
+	}
+
+	return midi_formatter::midi_numbers(midi_number, midi_rhythm, this->is_in_chord_with_previous_);
+}
+
 std::ostream & operator<<(std::ostream & os, const Note & note) {
 	os << note.to_string();
 	return os;

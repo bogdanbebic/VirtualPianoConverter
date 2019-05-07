@@ -27,6 +27,7 @@ public:
 	bool is_sharp() const;
 
 	std::string to_mxml() override;
+	midi_formatter::midi_numbers to_midi() override;
 
 private:
 	Pitch pitch_;

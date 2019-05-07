@@ -128,6 +128,7 @@
     <ClCompile Include="midifile\src\MidiFile.cpp" />
     <ClCompile Include="midifile\src\MidiMessage.cpp" />
     <ClCompile Include="midifile\src\Options.cpp" />
+    <ClCompile Include="MidiNumbersStruct.cpp" />
     <ClCompile Include="MusicSymbol.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Part.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="midifile\include\MidiMessage.h" />
     <ClInclude Include="midifile\include\Options.h" />
     <ClInclude Include="MidiFormatter.h" />
+    <ClInclude Include="MidiNumbersStruct.h" />
     <ClInclude Include="MusicSymbol.h" />
     <ClInclude Include="MxmlFormatter.h" />
     <ClInclude Include="Note.h" />

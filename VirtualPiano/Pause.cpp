@@ -32,6 +32,18 @@ std::string Pause::to_mxml() {
 	return ret;
 }
 
+midi_formatter::midi_numbers Pause::to_midi() {
+	auto midi_rhythm = 0;
+	if (this->duration_ == one_quarter) {
+		midi_rhythm = 2;
+	}
+	else if (this->duration_ == one_eight) {
+		midi_rhythm = 1;
+	}
+
+	return midi_formatter::midi_numbers(midi_rhythm, true);
+}
+
 std::ostream & operator<<(std::ostream & os, const Pause & pause) {
 	os << pause.to_string();
 	return os;
