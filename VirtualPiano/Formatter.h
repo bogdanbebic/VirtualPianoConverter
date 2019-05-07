@@ -16,7 +16,7 @@ public:
 	Formatter& operator = (const Formatter & other) = default;
 	Formatter& operator = (Formatter && other) = default;
 
-	virtual void generate_output_file(std::ostream & out_file, const Composition<NumberOfParts> & composition) = 0;
+	virtual void generate_output_file(const std::string out_file_path, const Composition<NumberOfParts> & composition) = 0;
 
 	virtual ~Formatter() = default;
 };

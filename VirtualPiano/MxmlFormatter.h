@@ -8,7 +8,7 @@ template <unsigned NumberOfParts = composition::default_number_of_parts>
 class MxmlFormatter : public Formatter<NumberOfParts> {
 public:
 	explicit MxmlFormatter(std::vector<std::string> part_ids = {"Right", "Left"});
-	void generate_output_file(std::ostream & out_file, const Composition<NumberOfParts> & composition) override;
+	void generate_output_file(const std::string out_file_path, const Composition<NumberOfParts> & composition) override;
 private:
 	static void generate_header(std::ostream & out_mxml);
 	void generate_part_list(std::ostream & out_mxml);
@@ -26,7 +26,8 @@ MxmlFormatter<NumberOfParts>::MxmlFormatter(std::vector<std::string> part_ids)
 }
 
 template<unsigned NumberOfParts>
-void MxmlFormatter<NumberOfParts>::generate_output_file(std::ostream & out_file, const Composition<NumberOfParts> & composition) {
+void MxmlFormatter<NumberOfParts>::generate_output_file(const std::string out_file_path, const Composition<NumberOfParts> & composition) {
+	std::ofstream out_file{out_file_path};
 	generate_header(out_file);
 	out_file << "<score-partwise version=\"3.1\">\n";
 	generate_part_list(out_file);

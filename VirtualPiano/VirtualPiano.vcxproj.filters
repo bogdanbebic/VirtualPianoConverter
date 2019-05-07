@@ -128,6 +128,9 @@
     <ClInclude Include="MxmlFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MidiFormatter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\map.csv">
