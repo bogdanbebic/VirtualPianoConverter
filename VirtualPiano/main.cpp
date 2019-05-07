@@ -8,15 +8,16 @@
 int main(int argc, char* argv[]) {
 	std::cout << "Hello, World!" << std::endl;
 
+	std::string mapping_file_path;
 	if (argc < 2) {
-		std::cout << "Error: invalid usage of program.\n"
-			<< "Usage: program.exe file_path\n"
-			<< "param file_path - file which contains key to note and midi number mapping\n";
-
-		return 0;
+		std::cout << "Please enter file_path - file which contains key to note and midi number mapping:\n";
+		std::getline(std::cin, mapping_file_path);
+	}
+	else {
+		mapping_file_path = argv[1];
 	}
 
-	VirtualPianoParser parser{ argv[1] };
+	VirtualPianoParser parser{ mapping_file_path };
 
 	while (MenuInterface::is_program_running()) {
 		try {
