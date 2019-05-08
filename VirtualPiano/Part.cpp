@@ -64,6 +64,10 @@ const Measure & Part::back() const {
 	return this->measures_.back();
 }
 
+const Measure & Part::at(const unsigned index) const {
+	return this->measures_.at(index);
+}
+
 std::vector<Measure>::iterator Part::begin() {
 	return this->measures_.begin();
 }

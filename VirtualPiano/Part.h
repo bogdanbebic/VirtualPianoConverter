@@ -20,6 +20,8 @@ public:
 
 	const Measure & back() const;
 
+	const Measure & at(const unsigned index) const;
+
 	std::vector<Measure>::iterator begin();
 	std::vector<Measure>::const_iterator begin() const;
 	std::vector<Measure>::iterator end();

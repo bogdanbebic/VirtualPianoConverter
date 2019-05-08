@@ -31,6 +31,7 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 	MxmlFormatter<2U> mxml_formatter;
 	std::string file_path;
 	char yes_no;
+	auto measure_index = 0U;
 	switch (menu_option_) {
 	case EXIT:
 		if (!has_exported_) {
@@ -72,7 +73,20 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
 		break;
 	case PRINT_COMPOSITION:
-		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		while (true) {
+			try {
+				for (auto & part_it : composition) {
+					std::cout << part_it.at(measure_index) << "\n";
+				}
+
+				measure_index++;
+				std::cout << "\n";
+			}
+			catch(...) {
+				break;
+			}
+		}
+
 		break;
 	default: 
 		break;
