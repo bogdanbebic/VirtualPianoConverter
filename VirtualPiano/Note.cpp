@@ -106,7 +106,7 @@ midi_formatter::midi_numbers Note::to_midi() {
 		midi_rhythm = 1;
 	}
 
-	return midi_formatter::midi_numbers(midi_number, midi_rhythm, this->is_in_chord_with_previous_);
+	return midi_formatter::midi_numbers(midi_number, midi_rhythm, this->is_in_chord_with_previous_, this->legato_start_, this->legato_end_);
 }
 
 std::ostream & operator<<(std::ostream & os, const Note & note) {

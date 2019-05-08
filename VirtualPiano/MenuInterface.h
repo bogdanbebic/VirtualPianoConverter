@@ -4,13 +4,15 @@
 #include <iostream>
 #include "Composition.h"
 
+class VirtualPianoParser;
+
 class MenuInterface {
 public:
 	static void print_menu();
 
 	static void read_menu_option(std::istream& is = std::cin);
 
-	static void execute_option(Composition<2U> & composition, std::istream& is = std::cin);
+	static void execute_option(Composition<2U> & composition, VirtualPianoParser & parser, std::istream& is = std::cin);
 
 	static bool is_program_running() {
 		return is_program_running_;

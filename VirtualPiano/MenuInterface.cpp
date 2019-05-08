@@ -1,6 +1,7 @@
 #include "MenuInterface.h"
 #include "MidiFormatter.h"
 #include "MxmlFormatter.h"
+#include "VirtualPianoParser.h"
 
 void MenuInterface::print_menu() {
 	std::cout 
@@ -25,10 +26,10 @@ void MenuInterface::read_menu_option(std::istream& is) {
 
 }
 
-void MenuInterface::execute_option(Composition<2U> & composition, std::istream& is) {
+void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoParser & parser, std::istream& is) {
 	MidiFormatter<2U> midi_formatter;
 	MxmlFormatter<2U> mxml_formatter;
-	std::string out_file_path;
+	std::string file_path;
 	char yes_no;
 	switch (menu_option_) {
 	case EXIT:
@@ -45,23 +46,25 @@ void MenuInterface::execute_option(Composition<2U> & composition, std::istream& 
 		is_program_running_ = false;
 		break;
 	case LOAD_COMPOSITION:
-		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		std::cout << "Enter file path:\n";
+		is >> file_path;
+		parser.load_composition(file_path, composition);
 		break;
 	case EXPORT_MIDI:
 		std::cout << "Enter out file path:\n";
-		is >> out_file_path;
-		midi_formatter.generate_output_file(out_file_path, composition);
+		is >> file_path;
+		midi_formatter.generate_output_file(file_path, composition);
 		has_exported_ = true;
 		break;
 	case EXPORT_XML:
 		std::cout << "Enter out file path:\n";
-		is >> out_file_path;
-		mxml_formatter.generate_output_file(out_file_path, composition);
+		is >> file_path;
+		mxml_formatter.generate_output_file(file_path, composition);
 		has_exported_ = true;
 		break;
 	case EXPORT_BMP:
 		std::cout << "Enter out file path:\n";
-		is >> out_file_path;
+		is >> file_path;
 		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
 		has_exported_ = true;
 		break;
@@ -76,6 +79,7 @@ void MenuInterface::execute_option(Composition<2U> & composition, std::istream& 
 
 	}
 
+	std::cout << "\n";
 }
 
 bool MenuInterface::is_program_running_ = true;

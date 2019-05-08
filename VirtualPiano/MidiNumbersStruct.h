@@ -9,8 +9,10 @@ namespace midi_formatter {
 		int midi_rhythm = 0;
 		bool is_chord_with_previous = false;
 		bool is_pause = false;
+		bool is_legato_start = false;
+		bool is_legato_end = false;
 		MidiNumbersStruct() = default;
-		explicit MidiNumbersStruct(int midi_number, int midi_rhythm, bool is_chord_with_previous);
+		explicit MidiNumbersStruct(int midi_number, int midi_rhythm, bool is_chord_with_previous, bool is_legato_start, bool is_legato_end);
 		explicit MidiNumbersStruct(int midi_rhythm, bool is_pause);
 	} midi_numbers;
 

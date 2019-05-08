@@ -335,3 +335,5 @@ VirtualPiano/resource/*
 
 # midifile library
 VirtualPiano/midifile/*
+*.xml
+*.midi
