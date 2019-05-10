@@ -166,7 +166,7 @@
     <Text Include="resource\input\jingle_bells.txt" />
     <Text Include="resource\input\ode_to_joy.txt" />
     <Text Include="resource\input\spring.txt" />
-    <Text Include="resource\input\we_wich_you_a_merry_christmas.txt" />
+    <Text Include="resource\input\we_wish_you_a_merry_christmas.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

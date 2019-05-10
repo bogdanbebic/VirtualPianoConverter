@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 #include "Duration.h"
 #include "MidiNumbersStruct.h"
 

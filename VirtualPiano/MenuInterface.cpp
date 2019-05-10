@@ -1,7 +1,10 @@
 #include "MenuInterface.h"
+
 #include "MidiFormatter.h"
 #include "MxmlFormatter.h"
 #include "VirtualPianoParser.h"
+
+#include <string>
 
 void MenuInterface::print_menu() {
 	std::cout 
