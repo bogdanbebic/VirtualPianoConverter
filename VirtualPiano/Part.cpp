@@ -64,7 +64,11 @@ const Measure & Part::back() const {
 	return this->measures_.back();
 }
 
-const Measure & Part::at(const unsigned index) const {
+unsigned Part::size() const {
+	return this->measures_.size();
+}
+
+Measure & Part::at(const unsigned index) {
 	return this->measures_.at(index);
 }
 

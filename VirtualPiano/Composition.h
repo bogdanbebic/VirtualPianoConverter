@@ -60,6 +60,14 @@ template<unsigned NumberOfParts>
 void Composition<NumberOfParts>::push_back(std::unique_ptr<Note> note_ptr, part_id id) {
 	try {
 		auto temp = std::make_unique<Note>(Note(*note_ptr));
+		if (note_ptr->is_in_chord_with_previous() && this->parts_[id].back().current_duration() == MusicSymbol::one_eight) {
+			temp->set_duration(MusicSymbol::one_eight);
+			temp->set_legato_end();
+			note_ptr->set_legato_start();
+			note_ptr->set_duration(MusicSymbol::one_eight);
+			this->parts_[id].at(this->parts_[id].size() - 2).push_back(std::move(note_ptr));
+		}
+				
 		this->parts_[id].push_back(std::move(temp));
 	}
 	catch (MeasureDurationOverflow &) {

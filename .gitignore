@@ -337,3 +337,4 @@ VirtualPiano/resource/*
 VirtualPiano/midifile/*
 *.xml
 *.midi
+*.txt

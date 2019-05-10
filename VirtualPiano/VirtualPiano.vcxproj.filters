@@ -159,5 +159,8 @@
     <Text Include="resource\input\we_wish_you_a_merry_christmas.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="elastic_hearth.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

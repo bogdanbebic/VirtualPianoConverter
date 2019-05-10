@@ -31,7 +31,7 @@ void VirtualPianoParser::load_composition(const std::string & file_path, Composi
 		while (line.length() != 0) {
 			if (std::regex_match(line, matches, re)) {
 				// is with []
-				const auto is_chord = line.find(' ') == std::string::npos;
+				const auto is_chord = matches[1].str().find(' ') == std::string::npos;
 				const auto note_duration = is_chord ? MusicSymbol::one_quarter : MusicSymbol::one_eight;
 				auto pushed_to_left = false;
 				auto pushed_to_right = false;
@@ -45,12 +45,18 @@ void VirtualPianoParser::load_composition(const std::string & file_path, Composi
 
 					if (octave > Note::Octave::THREE) {
 						composition.push_back(std::make_unique<Note>(pitch, accidental, octave, note_duration, is_chord && pushed_to_right), 0);
-						composition.push_back(std::make_unique<Pause>(note_duration), 1);
+						if (!is_chord) {
+							composition.push_back(std::make_unique<Pause>(note_duration), 1);
+						}
+
 						pushed_to_right = true;
 					}
 					else {
 						composition.push_back(std::make_unique<Note>(pitch, accidental, octave, note_duration, is_chord && pushed_to_left), 1);
-						composition.push_back(std::make_unique<Pause>(note_duration), 0);
+						if (!is_chord) {
+							composition.push_back(std::make_unique<Pause>(note_duration), 0);
+						}
+
 						pushed_to_left = true;
 					}
 					
@@ -59,6 +65,14 @@ void VirtualPianoParser::load_composition(const std::string & file_path, Composi
 						i++;
 					}
 
+				}
+
+				if (is_chord && !pushed_to_right) {
+					composition.push_back(std::make_unique<Pause>(note_duration), 0);
+				}
+
+				if (is_chord && !pushed_to_left) {
+					composition.push_back(std::make_unique<Pause>(note_duration), 1);
 				}
 
 				line = matches[2].str();

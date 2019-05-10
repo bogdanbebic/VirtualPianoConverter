@@ -162,6 +162,7 @@
     <None Include="resource\map.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="elastic_hearth.txt" />
     <Text Include="resource\input\fur_elise.txt" />
     <Text Include="resource\input\jingle_bells.txt" />
     <Text Include="resource\input\ode_to_joy.txt" />
