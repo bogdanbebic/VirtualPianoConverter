@@ -178,12 +178,15 @@ void MenuInterface::iterate_through_composition(Composition<2U>& composition, st
 			<< "Choose option: ";
 	};
 
-	enum MeasureIterationMenuOptions { BACK_TO_PART, NEXT_SYMBOL, PREVIOUS_SYMBOL, NUM_OF_MEASURE_OPTIONS };
+	enum MeasureIterationMenuOptions { BACK_TO_PART, NEXT_SYMBOL, PREVIOUS_SYMBOL, CHANGE_OCTAVE, CHANGE_PITCH, TOGGLE_SHARP, NUM_OF_MEASURE_OPTIONS };
 	void(*print_measure_iteration_menu)(std::unique_ptr<MusicSymbol> current) = [](std::unique_ptr<MusicSymbol> current) {
 		std::cout << "Current symbol: \"" << current->to_string() << "\"\n"
 			<< BACK_TO_PART << ". Back to part\n"
 			<< NEXT_SYMBOL << ". Next symbol\n"
 			<< PREVIOUS_SYMBOL << ". Previous symbol\n"
+			<< CHANGE_OCTAVE << ". Change octave\n"
+			<< CHANGE_PITCH << ". Change pitch\n"
+			<< TOGGLE_SHARP << ". Toggle sharp\n"
 			<< "Choose option: ";
 	};
 
@@ -225,9 +228,10 @@ void MenuInterface::iterate_through_composition(Composition<2U>& composition, st
 			}
 			
 			break;
-		case ITERATE_THROUGH_MEASURE:	// TODO: implement all functions regarding music symbol change
+		case ITERATE_THROUGH_MEASURE:
 			music_symbol_pointer_it = measure_it->begin();
 			while (is_in_measure_iteration_menu) {
+				char new_pitch;
 				print_measure_iteration_menu((*music_symbol_pointer_it)->clone());
 				is >> temp;
 				if (temp < BACK_TO_PART || temp >= NUM_OF_MEASURE_OPTIONS) {
@@ -254,6 +258,24 @@ void MenuInterface::iterate_through_composition(Composition<2U>& composition, st
 						--music_symbol_pointer_it;
 					}
 
+					break;
+				case CHANGE_OCTAVE:
+					std::cout << "Input new octave [2 - 6]: ";
+					is >> temp;
+					if (temp >= Note::Octave::TWO && temp <= Note::Octave::SIX) {
+						(*music_symbol_pointer_it)->set_octave(temp);
+					}
+
+					break;
+				case CHANGE_PITCH:
+					std::cout << "Input new pitch in { C, D, E, F, G, A, B }: ";
+					is >> new_pitch;
+					if (std::string("CDEFGAB").find(new_pitch) != std::string::npos) {
+						(*music_symbol_pointer_it)->set_pitch(new_pitch);
+					}
+					break;
+				case TOGGLE_SHARP:
+					(*music_symbol_pointer_it)->toggle_sharp();
 					break;
 				default:
 					break;

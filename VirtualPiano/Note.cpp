@@ -28,6 +28,24 @@ void Note::shift_octave(int transposition_interval) {
 	this->octave_ = static_cast<Note::Octave>(this->octave_ + transposition_interval);  // NOLINT(misc-misplaced-widening-cast)
 }
 
+void Note::set_octave(int octave) {
+	this->octave_ = static_cast<Octave>(octave);
+}
+
+void Note::set_pitch(char pitch) {
+	this->pitch_ = static_cast<Pitch>(pitch);
+}
+
+void Note::toggle_sharp() {
+	if (this->accidental_ == NO_ACCIDENTAL) {
+		this->accidental_ = SHARP;
+	}
+	else if (this->accidental_ == SHARP) {
+		this->accidental_ = NO_ACCIDENTAL;
+	}
+
+}
+
 std::string Note::to_string() const {
 	std::string ret;
 	if (this->duration_ == one_quarter) {

@@ -13,6 +13,9 @@ public:
 	Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & duration, bool is_in_chord_with_previous = false);
 
 	void shift_octave(int transposition_interval) override;
+	void set_octave(int octave) override;
+	void set_pitch(char pitch) override;
+	void toggle_sharp() override;
 
 	std::string to_string() const override;
 

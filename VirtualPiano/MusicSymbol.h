@@ -25,6 +25,9 @@ public:
 	void set_duration(const Duration& duration);
 
 	virtual void shift_octave(int transposition_interval) {}
+	virtual void set_octave(int octave) {}
+	virtual void set_pitch(char pitch) {}
+	virtual void toggle_sharp() {}
 
 	virtual std::string to_string() const = 0;
 
