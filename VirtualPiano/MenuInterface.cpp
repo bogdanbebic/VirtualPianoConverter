@@ -14,6 +14,7 @@ void MenuInterface::print_menu() {
 		<< EXPORT_BMP << ". Export bmp\n"
 		<< ITERATE_THROUGH_COMPOSITION << ". Iterate through composition\n"
 		<< PRINT_COMPOSITION << ". Print composition\n"
+		<< SHIFT_OCTAVE << ". Shift octave\n"
 		<< EXIT << ". Exit program\n"
 		<< "Choose menu option (index of option): ";
 }
@@ -34,6 +35,7 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 	MxmlFormatter<2U> mxml_formatter;
 	std::string file_path;
 	char yes_no;
+	int octave_transposition_interval;
 	auto measure_index = 0U;
 	switch (menu_option_) {
 	case EXIT:
@@ -90,6 +92,11 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 			}
 		}
 
+		break;
+	case SHIFT_OCTAVE:
+		std::cout << "Input octave transposition interval: ";
+		is >> octave_transposition_interval;
+		composition.shift_octave(octave_transposition_interval);
 		break;
 	default: 
 		break;

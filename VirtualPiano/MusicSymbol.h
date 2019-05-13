@@ -24,6 +24,8 @@ public:
 
 	void set_duration(const Duration& duration);
 
+	virtual void shift_octave(int transposition_interval) {}
+
 	virtual std::string to_string() const = 0;
 
 	virtual std::unique_ptr<MusicSymbol> clone() const = 0;

@@ -21,6 +21,8 @@ public:
 	void push_back(std::unique_ptr<Note> note_ptr, part_id id);
 	void push_back(std::unique_ptr<Pause> pause_ptr, part_id id);
 
+	void shift_octave(int transposition_interval);
+
 	unsigned num_parts() const;
 
 	std::vector<Part>::reference at(part_id pos);
@@ -105,6 +107,20 @@ void Composition<NumberOfParts>::push_back(std::unique_ptr<Pause> pause_ptr, par
 		}
 		this->parts_[id].push_back(Measure(this->parts_[id].measure_duration()));
 		this->push_back(std::move(pause_ptr), id);
+	}
+
+}
+
+template <unsigned NumberOfParts>
+void Composition<NumberOfParts>::shift_octave(int transposition_interval) {
+	for (auto part_it = this->begin(); part_it != this->end(); ++part_it) {
+		for (auto measure_it = part_it->begin(); measure_it != part_it->end(); ++measure_it) {
+			for (auto & music_symbol_pointer : *measure_it) {
+				music_symbol_pointer->shift_octave(transposition_interval);
+			}
+
+		}
+
 	}
 
 }

@@ -20,6 +20,14 @@ Note::Note(Pitch pitch, Accidental accidental, Octave octave, const Duration & d
 	// empty body
 }
 
+void Note::shift_octave(int transposition_interval) {
+	if (this->octave_ + transposition_interval < Octave::TWO || this->octave_ + transposition_interval > Octave::SIX) {
+		return;
+	}
+
+	this->octave_ = static_cast<Note::Octave>(this->octave_ + transposition_interval);  // NOLINT(misc-misplaced-widening-cast)
+}
+
 std::string Note::to_string() const {
 	std::string ret;
 	if (this->duration_ == one_quarter) {
