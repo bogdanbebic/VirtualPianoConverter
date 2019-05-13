@@ -151,6 +151,7 @@
     <ClInclude Include="MidiFormatter.h" />
     <ClInclude Include="MidiNumbersStruct.h" />
     <ClInclude Include="MusicSymbol.h" />
+    <ClInclude Include="MusicSymbolBmpStruct.h" />
     <ClInclude Include="MxmlFormatter.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Part.h" />
