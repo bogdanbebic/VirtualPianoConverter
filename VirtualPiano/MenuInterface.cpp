@@ -5,6 +5,7 @@
 #include "VirtualPianoParser.h"
 
 #include <string>
+#include <memory>
 
 void MenuInterface::print_menu() {
 	std::cout 
@@ -40,6 +41,7 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 	int octave_transposition_interval;
 	unsigned numerator, denominator;
 	auto measure_index = 0U;
+	static auto is_loaded_composition = false;
 	switch (menu_option_) {
 	case EXIT:
 		if (!has_exported_) {
@@ -58,29 +60,55 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 		std::cout << "Enter file path:\n";
 		is >> in_file_path;
 		parser.load_composition(in_file_path, composition);
+		is_loaded_composition = true;
 		break;
 	case EXPORT_MIDI:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		std::cout << "Enter out file path:\n";
 		is >> file_path;
 		midi_formatter.generate_output_file(file_path, composition);
 		has_exported_ = true;
 		break;
 	case EXPORT_XML:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		std::cout << "Enter out file path:\n";
 		is >> file_path;
 		mxml_formatter.generate_output_file(file_path, composition);
 		has_exported_ = true;
 		break;
 	case EXPORT_BMP:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		std::cout << "Enter out file path:\n";
 		is >> file_path;
-		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement bmp exporting
 		has_exported_ = true;
 		break;
 	case ITERATE_THROUGH_COMPOSITION:
-		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
+		iterate_through_composition(composition, is);
 		break;
 	case PRINT_COMPOSITION:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		while (true) {
 			try {
 				for (auto & part_it : composition) {
@@ -97,11 +125,21 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 
 		break;
 	case SHIFT_OCTAVE:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		std::cout << "Input octave transposition interval: ";
 		is >> octave_transposition_interval;
 		composition.shift_octave(octave_transposition_interval);
 		break;
 	case CHANGE_MEASURE_DURATION:
+		if (!is_loaded_composition) {
+			std::cout << "No composition loaded\n";
+			break;
+		}
+
 		while (true) {
 			std::cout << "Enter composition duration (numerator/denominator)\n"
 				<< "denominator must be 4 or 8:\n";
@@ -130,6 +168,105 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 }
 
 void MenuInterface::iterate_through_composition(Composition<2U>& composition, std::istream & is) {
+	enum PartIterationMenuOptions { BACK_TO_MENU, NEXT_MEASURE, PREVIOUS_MEASURE, ITERATE_THROUGH_MEASURE, NUM_OF_PART_OPTIONS };
+	void (*print_part_iteration_menu)(Measure &current) = [](Measure &current) {
+		std::cout << "Current measure: \"" << current << "\"\n"
+			<< BACK_TO_MENU << ". Back to menu\n"
+			<< NEXT_MEASURE << ". Next measure\n"
+			<< PREVIOUS_MEASURE << ". Previous measure\n"
+			<< ITERATE_THROUGH_MEASURE << ". Iterate through measure\n"
+			<< "Choose option: ";
+	};
+
+	enum MeasureIterationMenuOptions { BACK_TO_PART, NEXT_SYMBOL, PREVIOUS_SYMBOL, NUM_OF_MEASURE_OPTIONS };
+	void(*print_measure_iteration_menu)(std::unique_ptr<MusicSymbol> current) = [](std::unique_ptr<MusicSymbol> current) {
+		std::cout << "Current symbol: \"" << current->to_string() << "\"\n"
+			<< BACK_TO_PART << ". Back to part\n"
+			<< NEXT_SYMBOL << ". Next symbol\n"
+			<< PREVIOUS_SYMBOL << ". Previous symbol\n"
+			<< "Choose option: ";
+	};
+
+	unsigned part_index;
+	std::cout << "Select part on which to iterate: ";
+	is >> part_index;
+	auto part = composition.at(part_index);
+	std::cout << part << "\n";
+	auto measure_it = part.begin();
+	auto is_in_part_menu = true;
+	while (is_in_part_menu) {
+		print_part_iteration_menu(*measure_it);
+		int temp;
+		is >> temp;
+		if (temp < BACK_TO_MENU || temp >= NUM_OF_PART_OPTIONS) {
+			throw InvalidMenuOption();
+		}
+
+		const auto part_menu_option = static_cast<PartIterationMenuOptions>(temp);
+		auto is_in_measure_iteration_menu = true;
+		auto music_symbol_pointer_it = measure_it->begin();
+		switch (part_menu_option) {
+		case BACK_TO_MENU:
+			is_in_part_menu = false;
+			break;
+		case NEXT_MEASURE:
+			if (++measure_it == part.end()) {
+				std::cout << "End of part, this is the last measure\n";
+				--measure_it;
+			}
+
+			break;
+		case PREVIOUS_MEASURE:
+			if (measure_it == part.begin()) {
+				std::cout << "Beginning of part, this is the first measure\n";
+			}
+			else {
+				--measure_it;
+			}
+			
+			break;
+		case ITERATE_THROUGH_MEASURE:	// TODO: implement all functions regarding music symbol change
+			music_symbol_pointer_it = measure_it->begin();
+			while (is_in_measure_iteration_menu) {
+				print_measure_iteration_menu((*music_symbol_pointer_it)->clone());
+				is >> temp;
+				if (temp < BACK_TO_PART || temp >= NUM_OF_MEASURE_OPTIONS) {
+					throw InvalidMenuOption();
+				}
+
+				const auto measure_menu_option = static_cast<MeasureIterationMenuOptions>(temp);
+				switch (measure_menu_option) {
+				case BACK_TO_PART:
+					is_in_measure_iteration_menu = false;
+					break;
+				case NEXT_SYMBOL:
+					if (++music_symbol_pointer_it == measure_it->end()) {
+						std::cout << "End of measure, this is the last symbol\n";
+						--music_symbol_pointer_it;
+					}
+					
+					break;
+				case PREVIOUS_SYMBOL:
+					if (music_symbol_pointer_it == measure_it->begin()) {
+						std::cout << "Beginning of measure, this is the first symbol\n";
+					}
+					else {
+						--music_symbol_pointer_it;
+					}
+
+					break;
+				default:
+					break;
+				}
+
+			}
+
+			break;
+		default:
+			break;
+		}
+		
+	}
 
 }
 
