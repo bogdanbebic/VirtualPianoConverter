@@ -22,6 +22,7 @@ public:
 	void push_back(std::unique_ptr<Pause> pause_ptr, part_id id);
 
 	void shift_octave(int transposition_interval);
+	void change_measure_duration(const Duration & measure_duration);
 
 	unsigned num_parts() const;
 
@@ -121,6 +122,15 @@ void Composition<NumberOfParts>::shift_octave(int transposition_interval) {
 
 		}
 
+	}
+
+}
+
+template <unsigned NumberOfParts>
+void Composition<NumberOfParts>::change_measure_duration(const Duration& measure_duration) {
+	this->parts_.clear();
+	for (auto i = 0U; i < NumberOfParts; i++) {
+		this->parts_.push_back(Part(measure_duration));
 	}
 
 }

@@ -15,6 +15,7 @@ void MenuInterface::print_menu() {
 		<< ITERATE_THROUGH_COMPOSITION << ". Iterate through composition\n"
 		<< PRINT_COMPOSITION << ". Print composition\n"
 		<< SHIFT_OCTAVE << ". Shift octave\n"
+		<< CHANGE_MEASURE_DURATION << ". Change measure duration\n"
 		<< EXIT << ". Exit program\n"
 		<< "Choose menu option (index of option): ";
 }
@@ -33,9 +34,11 @@ void MenuInterface::read_menu_option(std::istream& is) {
 void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoParser & parser, std::istream& is) {
 	MidiFormatter<2U> midi_formatter;
 	MxmlFormatter<2U> mxml_formatter;
+	static std::string in_file_path;
 	std::string file_path;
 	char yes_no;
 	int octave_transposition_interval;
+	unsigned numerator, denominator;
 	auto measure_index = 0U;
 	switch (menu_option_) {
 	case EXIT:
@@ -53,8 +56,8 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 		break;
 	case LOAD_COMPOSITION:
 		std::cout << "Enter file path:\n";
-		is >> file_path;
-		parser.load_composition(file_path, composition);
+		is >> in_file_path;
+		parser.load_composition(in_file_path, composition);
 		break;
 	case EXPORT_MIDI:
 		std::cout << "Enter out file path:\n";
@@ -98,12 +101,36 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 		is >> octave_transposition_interval;
 		composition.shift_octave(octave_transposition_interval);
 		break;
+	case CHANGE_MEASURE_DURATION:
+		while (true) {
+			std::cout << "Enter composition duration (numerator/denominator)\n"
+				<< "denominator must be 4 or 8:\n";
+			is >> numerator;
+			is.get();
+			is >> denominator;
+			if (denominator == 4 || denominator == 8) {
+				break;
+			}
+
+			std::cerr << "Invalid input for composition duration\n";
+		}
+
+		composition.change_measure_duration(Duration(numerator, denominator));
+		if (in_file_path.length() > 0) {
+			parser.load_composition(in_file_path, composition);
+		}
+
+		break;
 	default: 
 		break;
 
 	}
 
 	std::cout << "\n";
+}
+
+void MenuInterface::iterate_through_composition(Composition<2U>& composition, std::istream & is) {
+
 }
 
 bool MenuInterface::is_program_running_ = true;

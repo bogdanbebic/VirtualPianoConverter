@@ -28,7 +28,9 @@ public:
 
 private:
 	enum MenuOptions { EXIT, LOAD_COMPOSITION, EXPORT_MIDI, EXPORT_XML, EXPORT_BMP, 
-		ITERATE_THROUGH_COMPOSITION, PRINT_COMPOSITION, SHIFT_OCTAVE, NUM_OF_OPTIONS };
+		ITERATE_THROUGH_COMPOSITION, PRINT_COMPOSITION, SHIFT_OCTAVE, CHANGE_MEASURE_DURATION, NUM_OF_OPTIONS };
+
+	void iterate_through_composition(Composition<2U> & composition, std::istream& is = std::cin);
 
 	static MenuOptions menu_option_;
 	static bool is_program_running_;
