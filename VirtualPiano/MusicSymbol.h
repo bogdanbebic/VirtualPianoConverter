@@ -6,6 +6,7 @@
 #include <memory>
 #include "Duration.h"
 #include "MidiNumbersStruct.h"
+#include "MusicSymbolBmpStruct.h"
 
 class MusicSymbol {
 public:
@@ -28,6 +29,7 @@ public:
 	virtual void set_octave(int octave) {}
 	virtual void set_pitch(char pitch) {}
 	virtual void toggle_sharp() {}
+	virtual bool is_in_chord_with_previous() const { return false; }
 
 	virtual std::string to_string() const = 0;
 
@@ -40,6 +42,7 @@ public:
 
 	virtual std::string to_mxml() = 0;
 	virtual midi_formatter::midi_numbers to_midi() = 0;
+	virtual bmp_formatter::MusicSymbolBmpStruct to_bmp() = 0;
 
 	static unsigned duration_to_mxml_duration(const Duration & duration);
 protected:

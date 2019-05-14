@@ -130,6 +130,7 @@
     <ClCompile Include="midifile\src\Options.cpp" />
     <ClCompile Include="MidiNumbersStruct.cpp" />
     <ClCompile Include="MusicSymbol.cpp" />
+    <ClCompile Include="MusicSymbolBmpStruct.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="VirtualPianoParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BmpFormatter.h" />
     <ClInclude Include="Composition.h" />
     <ClInclude Include="Duration.h" />
     <ClInclude Include="Formatter.h" />

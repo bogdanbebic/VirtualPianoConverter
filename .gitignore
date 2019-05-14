@@ -338,3 +338,4 @@ VirtualPiano/midifile/*
 *.xml
 *.midi
 *.txt
+*.bmp

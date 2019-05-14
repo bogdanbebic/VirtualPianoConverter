@@ -44,6 +44,10 @@ midi_formatter::midi_numbers Pause::to_midi() {
 	return midi_formatter::midi_numbers(midi_rhythm, true);
 }
 
+bmp_formatter::MusicSymbolBmpStruct Pause::to_bmp() {
+	return bmp_formatter::MusicSymbolBmpStruct(255, 255, 255, this->duration_ == one_quarter ? 2 : 1);
+}
+
 std::ostream & operator<<(std::ostream & os, const Pause & pause) {
 	os << pause.to_string();
 	return os;

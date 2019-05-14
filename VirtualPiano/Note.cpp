@@ -135,6 +135,11 @@ midi_formatter::midi_numbers Note::to_midi() {
 	return midi_formatter::midi_numbers(midi_number, midi_rhythm, this->is_in_chord_with_previous_, this->legato_start_, this->legato_end_);
 }
 
+bmp_formatter::MusicSymbolBmpStruct Note::to_bmp() {
+	// TODO: implement
+	return bmp_formatter::MusicSymbolBmpStruct();
+}
+
 std::ostream & operator<<(std::ostream & os, const Note & note) {
 	os << note.to_string();
 	return os;

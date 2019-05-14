@@ -15,6 +15,7 @@ public:
 
 	std::string to_mxml() override;
 	midi_formatter::midi_numbers to_midi() override;
+	bmp_formatter::MusicSymbolBmpStruct to_bmp() override;
 };
 
 #endif	// end Pause.h

@@ -2,6 +2,7 @@
 #define _FORMATTER_H_
 
 #include <fstream>
+#include <string>
 
 #include "Composition.h"
 

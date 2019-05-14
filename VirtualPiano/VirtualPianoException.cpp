@@ -23,3 +23,7 @@ char const * IncompatibleNumberOfParts::what() const {
 char const * IllegalMapingFileFormat::what() const {
 	return "\n*** Error: Illegal mapping file format ***\n";
 }
+
+char const* InvalidBmpWidth::what() const {
+	return "*** Error: invalid width of bmp file (width must be divisible by 4) ***\n";
+}

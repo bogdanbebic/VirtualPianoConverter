@@ -32,4 +32,9 @@ public:
 	char const* what() const override;
 };
 
+class InvalidBmpWidth : public VirtualPianoException {
+public:
+	char const* what() const override;
+};
+
 #endif

@@ -25,7 +25,7 @@ public:
 
 	friend std::ostream & operator << (std::ostream & os, const Note & note);
 
-	bool is_in_chord_with_previous() const;
+	bool is_in_chord_with_previous() const override;
 	void set_legato_start();
 	void set_legato_end();
 	bool has_no_accidental() const;
@@ -33,6 +33,7 @@ public:
 
 	std::string to_mxml() override;
 	midi_formatter::midi_numbers to_midi() override;
+	bmp_formatter::MusicSymbolBmpStruct to_bmp() override;
 
 private:
 	Pitch pitch_;

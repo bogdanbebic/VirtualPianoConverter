@@ -75,6 +75,9 @@
     <ClCompile Include="MidiNumbersStruct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MusicSymbolBmpStruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VirtualPianoParser.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MusicSymbolBmpStruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BmpFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,9 @@
 
 #include "MidiFormatter.h"
 #include "MxmlFormatter.h"
+#include "BmpFormatter.h"
 #include "VirtualPianoParser.h"
+#include "VirtualPianoException.h"
 
 #include <string>
 #include <memory>
@@ -35,9 +37,11 @@ void MenuInterface::read_menu_option(std::istream& is) {
 void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoParser & parser, std::istream& is) {
 	MidiFormatter<2U> midi_formatter;
 	MxmlFormatter<2U> mxml_formatter;
+	BmpFormatter<2U> bmp_formatter;
 	static std::string in_file_path;
 	std::string file_path;
 	char yes_no;
+	unsigned width_of_bmp_in_pixels;
 	int octave_transposition_interval;
 	unsigned numerator, denominator;
 	auto measure_index = 0U;
@@ -92,7 +96,20 @@ void MenuInterface::execute_option(Composition<2U> & composition, VirtualPianoPa
 
 		std::cout << "Enter out file path:\n";
 		is >> file_path;
-		std::cout << "NOT YET IMPLEMENTED :(\n";	// TODO: implement bmp exporting
+		std::cout << "Input width of bmp: ";
+		while (true) {
+			try {
+				is >> width_of_bmp_in_pixels;
+				bmp_formatter.set_bitmap_width(width_of_bmp_in_pixels);
+				break;
+			}
+			catch (InvalidBmpWidth & ex) {
+				std::cout << ex.what();
+			}
+
+		}
+
+		bmp_formatter.generate_output_file(file_path, composition);
 		has_exported_ = true;
 		break;
 	case ITERATE_THROUGH_COMPOSITION:
