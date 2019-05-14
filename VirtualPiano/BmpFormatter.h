@@ -44,7 +44,6 @@ void BmpFormatter<NumberOfParts>::generate_output_file(const std::string out_fil
 
 template <unsigned NumberOfParts>
 unsigned BmpFormatter<NumberOfParts>::calculate_bitmap_size(const Composition<NumberOfParts>& composition) {
-	// TODO: align to (k * 4px) per row
 	auto part_it = composition.begin();
 	auto size = 0U;
 	for (auto measure_it = part_it->begin(); measure_it != part_it->end(); ++measure_it) {
