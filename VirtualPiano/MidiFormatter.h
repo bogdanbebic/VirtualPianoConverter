@@ -8,8 +8,8 @@
 #include "MidiNumbersStruct.h"
 
 namespace midi_formatter {
-	constexpr int default_ticks_per_quarter_note = 48;
-	constexpr int default_attack_release_velocity = 64;
+	constexpr int default_ticks_per_quarter_note = 120;
+	constexpr int default_attack_release_velocity = 120;
 }
 
 template <unsigned NumberOfParts = composition::default_number_of_parts>
@@ -48,16 +48,16 @@ void MidiFormatter<NumberOfParts>::generate_output_file(const std::string out_fi
 			for (auto & music_symbol_ptr : *measure_it) {
 				midi_formatter::midi_numbers midi_numbers_mapped = music_symbol_ptr->to_midi();
 				if (!midi_numbers_mapped.is_pause) {
+					if (midi_numbers_mapped.is_chord_with_previous) {
+						this->action_time_ -= this->ticks_per_quarter_note_ * midi_numbers_mapped.midi_rhythm;
+					}
+
 					if (!midi_numbers_mapped.is_legato_end) {
 						this->midi_event_[0] = store_note_start;
 						this->midi_event_[1] = midi_numbers_mapped.midi_number;
 						this->midi_file_.addEvent(part_index, this->action_time_, this->midi_event_);
 					}
-
-					if (midi_numbers_mapped.is_chord_with_previous) {
-						this->action_time_ -= this->ticks_per_quarter_note_ * midi_numbers_mapped.midi_rhythm;
-					}
-
+					
 					if (!midi_numbers_mapped.is_legato_start) {
 						this->action_time_ += this->ticks_per_quarter_note_ * midi_numbers_mapped.midi_rhythm;
 						this->midi_event_[0] = store_note_end;
