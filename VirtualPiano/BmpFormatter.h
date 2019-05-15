@@ -3,6 +3,10 @@
 
 #include "VirtualPianoException.h"
 #include "Formatter.h"
+#include "MusicSymbolBmpStruct.h"
+
+#include <vector>
+#include <fstream>
 
 template <unsigned NumberOfParts = composition::default_number_of_parts>
 class BmpFormatter : public Formatter<NumberOfParts> {
@@ -37,8 +41,51 @@ void BmpFormatter<NumberOfParts>::generate_output_file(const std::string out_fil
 	std::ofstream out_file{ out_file_path, std::ios::binary };
 	this->output_header(out_file);
 
-	// TODO: implement
-	std::cout << "NOT YET IMPLEMENTED :(\n";
+	typedef struct MusicPixelStruct {
+		bmp_formatter::music_symbol_bmp pixel{};
+		bool is_note_added = false;
+	} music_pixel;
+
+	std::vector<music_pixel> output_pixels{this->bitmap_size_ / 3};
+	for (auto part_it = composition.begin(); part_it != composition.end(); ++part_it) {
+		auto output_pixel_index = static_cast<unsigned>(-1);
+		for (auto measure_it = part_it->begin(); measure_it != part_it->end(); ++measure_it) {
+			auto notes_in_chord = 1U;
+			for (auto & music_symbol_ptr : *measure_it) {
+				if (music_symbol_ptr->is_in_chord_with_previous()) {
+					// TODO: aritmeticka sredina, ne inkrementira se output_pixel_index
+					auto new_bmp = music_symbol_ptr->to_bmp();
+					// output_pixels[output_pixel_index].pixel;
+				}
+				else {
+					output_pixels[++output_pixel_index] = { music_symbol_ptr->to_bmp(), false };
+				}
+
+			}
+
+		}
+
+	}
+
+	auto bytes_written = 0U;
+	for (auto & output_pixel : output_pixels) {
+		for (auto i = 0U; i < output_pixel.pixel.num_of_pixels; i++) {
+			out_file.put(output_pixel.pixel.red);
+			out_file.put(output_pixel.pixel.green);
+			out_file.put(output_pixel.pixel.blue);
+			bytes_written += 3;
+		}
+
+		if (this->width_ - bytes_written % this->width_ < 3) {
+			for (auto j = 0U; j < this->width_ - bytes_written % this->width_; j++) {
+				out_file.put(0);
+				bytes_written++;
+			}
+
+		}
+
+	}
+
 }
 
 template <unsigned NumberOfParts>
