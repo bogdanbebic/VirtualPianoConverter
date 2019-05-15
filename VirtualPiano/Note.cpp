@@ -136,8 +136,7 @@ midi_formatter::midi_numbers Note::to_midi() {
 }
 
 bmp_formatter::MusicSymbolBmpStruct Note::to_bmp() {
-	// TODO: implement
-	return bmp_formatter::MusicSymbolBmpStruct();
+	return bmp_formatter::MusicSymbolBmpStruct(0, 255, 0, this->duration_ == one_quarter ? 2 : 1);
 }
 
 std::ostream & operator<<(std::ostream & os, const Note & note) {
