@@ -19,7 +19,6 @@ private:
 
 	unsigned bitmap_size_ = 0;
 	unsigned width_ = 4, height_ = 0;
-	static constexpr unsigned bmp_header_size = 54U;
 };
 
 template <unsigned NumberOfParts>
@@ -46,6 +45,7 @@ template <unsigned NumberOfParts>
 unsigned BmpFormatter<NumberOfParts>::calculate_bitmap_size(const Composition<NumberOfParts>& composition) {
 	auto part_it = composition.begin();
 	auto size = 0U;
+	constexpr auto size_of_rgb_in_pixels = 3U;
 	for (auto measure_it = part_it->begin(); measure_it != part_it->end(); ++measure_it) {
 		for (auto & music_symbol_ptr : *measure_it) {
 			if (music_symbol_ptr->is_in_chord_with_previous()) {
@@ -54,10 +54,10 @@ unsigned BmpFormatter<NumberOfParts>::calculate_bitmap_size(const Composition<Nu
 						size += this->width_ - size % this->width_;
 					}
 					
-					size += 2U;
+					size += size_of_rgb_in_pixels * 2U;
 				}
 				else if (music_symbol_ptr->duration() == MusicSymbol::one_eight) {
-					size++;
+					size += size_of_rgb_in_pixels * 1U;
 				}
 
 			}
@@ -71,7 +71,34 @@ unsigned BmpFormatter<NumberOfParts>::calculate_bitmap_size(const Composition<Nu
 
 template <unsigned NumberOfParts>
 void BmpFormatter<NumberOfParts>::output_header(std::ofstream & out_file) const {
-	// TODO: implement
+	constexpr unsigned char size_of_header = 54U;
+	constexpr unsigned char size_of_dib_header = 40U;
+	const unsigned char size_of_file = size_of_header + this->bitmap_size_;
+	char output[size_of_header] = {
+		0x42, 0x4D,
+		static_cast<char>(size_of_file & 0xFF), static_cast<char>((size_of_file & 0xFF00) >> 8), static_cast<char>((size_of_file & 0xFF0000) >> 2 * 8), static_cast<char>((size_of_file & 0xFF000000) >> 3 * 8),
+		0x0, 0x0,
+		0x0, 0x0,
+		static_cast<char>(size_of_header & 0xFF), static_cast<char>((size_of_header & 0xFF00) >> 8),
+		static_cast<char>((size_of_header & 0xFF0000) >> 2 * 8), static_cast<char>((size_of_header & 0xFF000000) >> 3 * 8),
+		static_cast<char>(size_of_dib_header & 0xFF), static_cast<char>((size_of_dib_header & 0xFF00) >> 8),
+		static_cast<char>((size_of_dib_header & 0xFF0000) >> 2 * 8), static_cast<char>((size_of_dib_header & 0xFF000000) >> 3 * 8),
+		static_cast<char>(this->width_ & 0xFF), static_cast<char>((this->width_ & 0xFF00) >> 8),
+		static_cast<char>((this->width_ & 0xFF0000) >> 2 * 8), static_cast<char>((this->width_ & 0xFF000000) >> 3 * 8),
+		static_cast<char>(this->height_ & 0xFF), static_cast<char>((this->height_ & 0xFF00) >> 8),
+		static_cast<char>((this->height_ & 0xFF0000) >> 2 * 8), static_cast<char>((this->height_ & 0xFF000000) >> 3 * 8),
+		0x1, 0x0,
+		0x18, 0x0,
+		0x0, 0x0, 0x0, 0x0,
+		static_cast<char>(this->bitmap_size_ & 0xFF), static_cast<char>((this->bitmap_size_ & 0xFF00) >> 8),
+		static_cast<char>((this->bitmap_size_ & 0xFF0000) >> 2 * 8), static_cast<char>((this->bitmap_size_ & 0xFF000000) >> 3 * 8),
+		0x13, 0x0B, 0x0, 0x0,
+		0x13, 0x0B, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0
+	};
+
+	out_file.write(output, size_of_header);
 }
 
 #endif
