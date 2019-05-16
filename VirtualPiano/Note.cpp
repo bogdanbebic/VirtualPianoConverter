@@ -136,7 +136,86 @@ midi_formatter::midi_numbers Note::to_midi() {
 }
 
 bmp_formatter::MusicSymbolBmpStruct Note::to_bmp() {
-	return bmp_formatter::MusicSymbolBmpStruct(0, 255, 0, this->duration_ == one_quarter ? 2 : 1);
+	auto bmp = bmp_formatter::MusicSymbolBmpStruct(0, 0, 0, this->duration_ == one_quarter ? 2 : 1);
+	switch (this->pitch_) {
+	case C:
+		bmp.red = 255;
+		bmp.green = this->is_sharp() ? 127 : 0;
+		bmp.blue = 0;
+		break;
+	case D:
+		bmp.red = this->is_sharp() ? 127 : 255;
+		bmp.green = 255;
+		bmp.blue = 0;
+		break;
+	case E:
+		bmp.red = 0;
+		bmp.green = 255;
+		bmp.blue = 0;
+		break;
+	case F:
+		bmp.red = 0;
+		bmp.green = 255;
+		bmp.blue = this->is_sharp() ? 255 : 127;
+		break;
+	case G:
+		bmp.red = 0;
+		bmp.green = this->is_sharp() ? 0 : 127;
+		bmp.blue = 255;
+		break;
+	case A:
+		bmp.red = this->is_sharp() ? 255 : 127;
+		bmp.green = 0;
+		bmp.blue = 255;
+		break;
+	case B:
+		bmp.red = 255;
+		bmp.green = 0;
+		bmp.blue = 127;
+		break;
+	default:
+		break;
+	}
+
+	unsigned char (*change_to_octave2)(unsigned char color) = [](unsigned char color) {
+		return static_cast<unsigned char>(color - color / 8 * 6);
+	};
+	unsigned char (*change_to_octave3)(unsigned char color) = [](unsigned char color) {
+		return static_cast<unsigned char>(color - color / 8 * 3);
+	};
+	unsigned char (*change_to_octave5)(unsigned char color) = [](unsigned char color) {
+		return static_cast<unsigned char>(color + (255 - color) / 8 * 3);
+	};
+	unsigned char (*change_to_octave6)(unsigned char color) = [](unsigned char color) {
+		return static_cast<unsigned char>(color - (255 - color) / 8 * 6);
+	};
+
+	switch (this->octave_) {
+	case TWO:
+		bmp.red = change_to_octave2(bmp.red);
+		bmp.green = change_to_octave2(bmp.green);
+		bmp.blue = change_to_octave2(bmp.blue);
+		break;
+	case THREE:
+		bmp.red = change_to_octave3(bmp.red);
+		bmp.green = change_to_octave3(bmp.green);
+		bmp.blue = change_to_octave3(bmp.blue);
+		break;
+	case FIVE:
+		bmp.red = change_to_octave5(bmp.red);
+		bmp.green = change_to_octave5(bmp.green);
+		bmp.blue = change_to_octave5(bmp.blue);
+		break;
+	case SIX:
+		bmp.red = change_to_octave6(bmp.red);
+		bmp.green = change_to_octave6(bmp.green);
+		bmp.blue = change_to_octave6(bmp.blue);
+		break;
+	default:
+		break;
+	}
+
+	return bmp;
 }
 
 std::ostream & operator<<(std::ostream & os, const Note & note) {
