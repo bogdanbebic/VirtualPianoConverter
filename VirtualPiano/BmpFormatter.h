@@ -81,19 +81,19 @@ void BmpFormatter<NumberOfParts>::generate_output_file(const std::string out_fil
 	for (auto measure_it = part_it->begin(); measure_it != part_it->end(); ++measure_it) {
 		auto notes_in_chord = 1U;
 		for (auto & music_symbol_ptr : *measure_it) {
-			output_pixel_index++;
-			if (music_symbol_ptr->is_in_chord_with_previous() || output_pixels[output_pixel_index].is_note_added) {
+			if (music_symbol_ptr->is_in_chord_with_previous() || output_pixels[output_pixel_index + 1].is_note_added) {
 				auto new_bmp = music_symbol_ptr->to_bmp();
-				new_bmp.red = new_bmp.red * notes_in_chord + output_pixels[output_pixel_index].pixel.red;
+				new_bmp.red = new_bmp.red * notes_in_chord + output_pixels[output_pixel_index + 1].pixel.red;
 				new_bmp.red /= ++notes_in_chord;
-				new_bmp.green = new_bmp.green * notes_in_chord + output_pixels[output_pixel_index].pixel.green;
+				new_bmp.green = new_bmp.green * notes_in_chord + output_pixels[output_pixel_index + 1].pixel.green;
 				new_bmp.green /= notes_in_chord;
-				new_bmp.blue = new_bmp.blue * notes_in_chord + output_pixels[output_pixel_index].pixel.blue;
+				new_bmp.blue = new_bmp.blue * notes_in_chord + output_pixels[output_pixel_index + 1].pixel.blue;
 				new_bmp.blue /= notes_in_chord;
-				output_pixels[output_pixel_index].pixel = new_bmp;
-				output_pixels[output_pixel_index].is_note_added = output_pixels[output_pixel_index].is_note_added || music_symbol_ptr->to_string()[0] != ' ';
+				output_pixels[output_pixel_index + 1].pixel = new_bmp;
+				output_pixels[output_pixel_index + 1].is_note_added = output_pixels[output_pixel_index + 1].is_note_added || music_symbol_ptr->to_string()[0] != ' ';
 			}
 			else {
+				output_pixel_index++;
 				output_pixels[output_pixel_index] = { music_symbol_ptr->to_bmp(),
 					output_pixels[output_pixel_index].is_note_added || music_symbol_ptr->to_string()[0] != ' ' };
 			}
