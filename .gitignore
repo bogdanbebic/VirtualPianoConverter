@@ -339,3 +339,5 @@ VirtualPiano/midifile/*
 *.midi
 *.txt
 *.bmp
+*.zip
+VirtualPiano/VirtualPiano.exe
